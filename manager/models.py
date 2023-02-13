@@ -1,5 +1,4 @@
 from django.db import models
-from models import relations
 # Create your models here.
 
 class Entity(models.Model):

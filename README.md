@@ -14,4 +14,12 @@ Install all required packages:
  $ pip3 install -r requirements.txt
 ```
 
+Run django server:
+```
+ $ python manage.py runserver
+```
 
+Run test:
+```
+ $ python manage.py test
+```
