@@ -1,2 +1,25 @@
 # SEG-venture-capital-portfolio
 The Code of Duty Major Group Project Year2Sem2
+
+## Instructions
+
+```
+ $ virtualenv venv
+ $ source venv/bin/activate
+```
+
+Install all required packages:
+
+```
+ $ pip3 install -r requirements.txt
+```
+
+Run django server:
+```
+ $ python manage.py runserver
+```
+
+Run test:
+```
+ $ python manage.py test
+```
