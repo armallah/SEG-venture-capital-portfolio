@@ -24,7 +24,7 @@ class Company(models.Model):
             Entity,
             related_name='founding_company'
             )
-    wayra_right: models.Manager["Right"]
+    wayra_right: models.QuerySet["Right"]
 
 
 
