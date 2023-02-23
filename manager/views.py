@@ -7,6 +7,6 @@ from django.http import HttpResponse
 def home(request):
     return HttpResponse("Hello, home page here please.")
     
-def log_in(request):
-    return render(request, 'log_in.html', {'form': form})
+def login(request):
+    return render(request, 'login.html')
  
