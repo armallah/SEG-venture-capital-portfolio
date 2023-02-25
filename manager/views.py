@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-def base(request):
+def dashboard(request):
     context = {
-    
     }
-    return render(request, 'base.html', context)
+    return render(request, 'dashboard.html', context)
