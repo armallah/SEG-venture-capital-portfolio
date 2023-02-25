@@ -34,7 +34,7 @@
               </ul>
             </div>
           </div>
-          <a class="navbar-brand" href="{% url 'base' %}">
+          <a class="navbar-brand" href="{% url 'dashboard' %}">
             <img src="{% static 'Wayra.svg'%}" height = 30 alt="Wayra" class="d-inline-block align-text-center">
           </a>
         </div>
@@ -87,8 +87,8 @@
            <div class="container-fluid page-contents">
               <div class="row">
                  <div class="col-lg-12">
-                    <h1>User Dashboard</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident laudantium nobis cum dignissimos ex inventore, velit blanditiis. Quod laborum soluta quidem culpa officia eligendi, quam, recusandae iste aliquid amet odit! </p>
+                   {% block contents%}
+                   {% endblock %}
                  </div>
               </div>
            </div>
