@@ -20,5 +20,5 @@ from manager import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('base/', views.base, name = 'base'),
+    path('dashboard/', views.dashboard, name = 'dashboard'),
 ]
