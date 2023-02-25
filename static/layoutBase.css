@@ -10,6 +10,7 @@
 #logout {
   margin-top: auto;
   color: black;
+  height: 100%;
 }
 
 #wrapper {
@@ -81,6 +82,7 @@
   margin: 0;
   padding: 0px;
   list-style: none;
+  /* margin-top: 2px; */
 }
 
 .sidebar-nav li {
@@ -129,6 +131,9 @@
   #wrapper {
      padding-left: 150px;
   }
+  .fixed-brand {
+     width: 150px;
+  }
   #wrapper.toggled {
      padding-left: 0;
   }
@@ -166,5 +171,4 @@
      -o-transition: all 0.5s ease;
      transition: all 0.5s ease;
      width: auto;
-  }
 }
