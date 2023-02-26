@@ -1,5 +1,11 @@
-#topBar {
-  margin: 0px;
+
+body,.container {
+    height:100%;
+    background: #E9EAE8;
+}
+
+.row{
+  margin-bottom: 20px;
 }
 
 .nav-pills > li > a {
@@ -9,12 +15,14 @@
 
 #logout {
   margin-top: auto;
-  color: black;
+  color: #2B2D30;
   height: 100%;
 }
 
 #wrapper {
+  height: 100%;
   padding-left: 0px;
+  transition: all .4s ease 0s;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -24,19 +32,23 @@
 
 #wrapper.toggled {
   padding-left: 150px;
-  overflow: hidden;
+  /* overflow: hidden; */
+  /* height: 100%; */
 }
 
 #sidebar-wrapper {
   z-index: 1000;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  left: 150px;
-  width: 0;
+  position: fixed;
+  top: 0;
+  /* display: flex;
+  flex-direction: column; */
+  left: 150;
+  width: 150px;
   height: 100%;
   margin-left: -150px;
-  overflow-y: auto;
+  transition: all .4s ease 0s;
+  /* overflow-y: auto; */
+  overflow: hidden;
   background: #000;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -45,14 +57,19 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  width: 150px;
+  left: 150px;
+  /* height: 100%; */
 }
 
 #page-content-wrapper {
-  position: absolute;
-  padding: 15px;
+  padding-left: 0;
+  margin-left: 0;
   width: 100%;
-  overflow-x: hidden;
+  height: auto;
+
+  /* position: absolute; */
+  /* padding: 15px; */
+  /* overflow-x: hidden; */
 }
 
 .page-contents {
@@ -69,23 +86,27 @@
   height: inherit;
   border: 0;
   border-radius: 0;
+  /* overflow: hidden; */
 }
 
 /* Sidebar Styles */
 
+
 .sidebar-nav {
+  display: block;
+  float: left;
+  width: 150px;
+  list-style: none;
+  padding: 0;
   /* position: absolute; */
   /* top: 0; */
-  width: 150px;
-  flex: 1;
-  flex-direction: column;
-  margin: 0;
-  padding: 0px;
-  list-style: none;
+  /* padding-top: 30; */
+  background-color: black;
   /* margin-top: 2px; */
 }
 
 .sidebar-nav li {
+  margin-top: 20;
   text-indent: 15px;
   line-height: 40px;
 }
@@ -113,7 +134,7 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-  height: 65px;
+  /* height: 65px; */
   font-size: 18px;
   line-height: 60px;
 }
@@ -130,9 +151,6 @@
 @media (min-width: 768px) {
   #wrapper {
      padding-left: 150px;
-  }
-  .fixed-brand {
-     width: 150px;
   }
   #wrapper.toggled {
      padding-left: 0;
