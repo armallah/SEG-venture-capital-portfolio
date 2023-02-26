@@ -27,6 +27,18 @@ class Company(models.Model):
     wayra_right: models.Manager["Right"]
 
 
+class Users(AbstractUser): # user class
+    first_name = models.CharField(max_length=30, help_text='Enter firstname')
+    last_name = models.CharField(max_length=30, help_text='Enter lastname')
+    username = models.EmailField(max_length = 50, unique = True, help_text = 'Enter a unique email')
+    #email = models.EmailField(max_length=255, unique=True, help_text='Enter email')
+    USER_TYPE_CHOICES = ((1, 'Portfolio manager'),(2, 'Admin'))
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES , default=1)
+
+    def full_name(self):
+        return (self.first_name + " " + self.last_name)
+
+
 
 class Investing(models.Model):
     investor = models.ForeignKey(Entity, on_delete=models.CASCADE)
