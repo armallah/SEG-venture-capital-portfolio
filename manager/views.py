@@ -6,7 +6,6 @@ from django.contrib import messages
 
 # Create your views here.
 
-
 def home(request):
     return HttpResponse("Hello, home page here please.")
     
