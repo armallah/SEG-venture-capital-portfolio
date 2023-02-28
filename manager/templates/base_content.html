@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_login.html' %}
+{% comment %} being used for login page {% endcomment %}
 {% block body %}
-  {% include 'partials/messages.html' %}
   {% block content %}
+  {% include 'partials/messages.html' %}
   {% endblock %}
 {% endblock %}

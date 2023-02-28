@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'TeleBold';
+    src: url('../fonts/TelefonicaWeb-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'TeleRegular';
+    src: url('../fonts/TelefonicaWeb-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'TeleLight';
+    src: url('../fonts/TelefonicaWeb-Light.ttf');
+}
+
+.form-control::placeholder {
+    font-family: TeleRegular, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.login-container input[type="text"], .login-container input[type="password"] {
+    text-indent: 10px;
+  }
+  
+.login-container {
+    font-family: TeleLight, Arial, sans-serif;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 60px;
+    margin-top: 30px;
+}
+
+.login-container h1 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.login-container .btn-block {
+    width: 100%;
+  }
+
+.btn {
+    margin-bottom: 20px;
+    background-color: #58176e;
+    border-color: #58176e;
+    color: #fefefe;
+
+}
+
+.btn[type=submit]:hover {
+    background-color: #990098;
+    border-color: #58176e;
+    color: #fefefe;
+
+}
+
+.btn:disabled {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    color: #787878;
+  }
+
+.logo {
+    padding-left: 15px;
+    max-width: 123.456px;
+    height: auto;
+}
+
+.btn-password, .btn-signup {
+    font-family: TeleLight, Arial, sans-serif;
+    border: none;
+    background-color: transparent;
+    color: #262626;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 15px;
+  }
+
+ 
+  
+  .btn-password:hover, .btn-signup:hover {
+    background-color: rgb(245, 245, 245);
+    background-color: hsl(0, 0%, 96%);
+    color: black;
+  }
+  
+  
+  
+  

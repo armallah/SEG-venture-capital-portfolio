@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hello, home page here please.")
+    return HttpResponse("Hello, home page or not here.")
     
 def login(request):
     if request.method == "POST":
@@ -25,3 +25,7 @@ def login(request):
     form = LoginForm()
     return render(request, 'login.html' , {'form':form})
  
+def dashboard(request):
+    context = {
+    }
+    return render(request, 'dashboard.html', context)
