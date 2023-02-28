@@ -9,7 +9,7 @@ from django.contrib import messages
 def home(request):
     return HttpResponse("Hello, home page or not here.")
     
-def login(request):
+def log_in(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -18,7 +18,7 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard')
             else:
                 messages.add_message(request, messages.ERROR, "The credentials provided were invalid!")
             

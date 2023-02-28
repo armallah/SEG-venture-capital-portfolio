@@ -11,11 +11,11 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-6">
-      <div class="login-container">
+      <div class="login-container text-center">
         <img src="{% static 'Wayra-black-on-white.png' %}" alt="Wayru Logo", class="logo">
-        <div class="card-body">
-          <h1 class="mb-6">Sign into your account</h1>
-          <form action="{% url 'login' %}" method="post">
+        <div class="card-body ">
+          <h1 class="sign-in-header">Sign into your account</h1>
+          <form action="{% url 'log_in' %}" method="post">
             {% csrf_token %}
             {% include 'partials/bootstrap_forms.html' with form=form %}
             {% for message in messages %}

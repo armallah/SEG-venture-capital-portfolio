@@ -12,29 +12,41 @@
     font-family: 'TeleLight';
     src: url('../fonts/TelefonicaWeb-Light.ttf');
 }
+@font-face {
+    font-family: 'TeleExtraLight';
+    src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
+}
+
 
 .form-control::placeholder {
-    font-family: TeleRegular, Arial, sans-serif;
+    font-family: TeleLight, Arial, sans-serif;
     font-size: 14px;
 }
 
 .login-container input[type="text"], .login-container input[type="password"] {
     text-indent: 10px;
+    height: 50px;
   }
-  
+
 .login-container {
     font-family: TeleLight, Arial, sans-serif;
-    border-radius: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 60px;
-    margin-top: 30px;
+    padding: 50px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 25%;
 }
 
-.login-container h1 {
+.sign-in-header {
     font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 30px;
+    color: #202124;
+    margin-bottom: 20px;
+
 }
 
 .login-container .btn-block {
@@ -69,23 +81,22 @@
 }
 
 .btn-password, .btn-signup {
-    font-family: TeleLight, Arial, sans-serif;
     border: none;
     background-color: transparent;
-    color: #262626;
+    color: #1a73e8;
     font-weight: bold;
     border-radius: 5px;
     padding: 5px 15px;
+    font-size: 14px;
   }
 
  
+.btn-password:hover, .btn-signup:hover {
+    background-color: hsl(210, 80%, 98%);
+    color: #174ea6;
+}
   
-  .btn-password:hover, .btn-signup:hover {
-    background-color: rgb(245, 245, 245);
-    background-color: hsl(0, 0%, 96%);
-    color: black;
-  }
-  
+
   
   
   
