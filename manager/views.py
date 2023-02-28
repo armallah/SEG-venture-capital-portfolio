@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hello, home page or not here.")
+    return HttpResponse("Hello, home page or not here.")    
     
 def log_in(request):
     if request.method == "POST":
@@ -29,3 +29,21 @@ def dashboard(request):
     context = {
     }
     return render(request, 'dashboard.html', context)
+
+from django.shortcuts import render, get_object_or_404
+from .models import Entity, Company
+
+    
+def entity_view(request, name):
+    entity = get_object_or_404(Entity, name=name)
+    
+    return render(request, 'entity_details.html', {'entity': entity})
+
+
+def company_view(request, name):
+    company = get_object_or_404(Company, name=name)
+    
+    return render(request, 'company_details.html', {'company': company})
+
+def error_404(request, exception):
+    return render(request, '404.html')

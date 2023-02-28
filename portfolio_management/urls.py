@@ -22,7 +22,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home , name="home"),
     path('dashboard/', views.dashboard, name = 'dashboard'),
-    path("login" , views.log_in , name="log_in")
+    path("login" , views.log_in , name="log_in"),
+    path('entity/<str:name>/', views.entity_view, name='entity_view'),
+    path('companies/<str:name>/', views.company_view, name='company_view')
 ]
 
-
+handler404 = views.error_404

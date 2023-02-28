@@ -1,0 +1,24 @@
+<h1>{{ company.name }}</h1>
+    <p>Number: {{ company.number }}</p>
+    <p>Country code: {{ company.country_code }}</p>
+
+    <h2>Investors:</h2>
+    <ul>
+    {% for investor in company.investors.all %}
+        <li>{{ investor.name }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Founders:</h2>
+    <ul>
+    {% for founder in company.founders.all %}
+        <li>{{ founder.name }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Wayra rights:</h2>
+    <ul>
+    {% for right in company.wayra_right.all %}
+        <li>{{ right.name }}</li>
+    {% endfor %}
+    </ul>

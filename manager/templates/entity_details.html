@@ -1,0 +1,16 @@
+<h1>{{ entity.name }}</h1>
+    <p>Investing companies:</p>
+        <ul>
+        {% for company in entity.invested_company.all %}
+            <li><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></li>
+        {% endfor %}
+        </ul>
+    <p>Founding companies:</p>
+        <ul>
+            {% for company in entity.founding_company.all %}
+                <li><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+        

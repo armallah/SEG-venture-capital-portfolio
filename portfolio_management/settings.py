@@ -29,6 +29,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# for custom 404 page to be seen, uncomment the below and comment out the above.
+
+# DEBUG = False
+
+# ALLOWED_HOSTS = ['*']
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -117,3 +124,4 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
