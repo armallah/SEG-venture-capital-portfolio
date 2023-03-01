@@ -1,0 +1,27 @@
+{% load static %}
+
+<table id = "display-tables" class="display compact" style="width:100%">
+  <caption>
+    List of all portfolio companies. Hold shift and click on rows to sort by multiple rows. Click on company name to view further details.
+  </caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Company Name</th>
+      <th>Registered Number</th>
+      <th>Country</th>
+      <th>Documents</th>
+      <th>Holding Rights</th>
+      <th>Total Founders</th>
+      <th>Total Investors</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% include 'partials/tempPortfolioTable.html' %}
+    <!--
+   {% for item in data %}
+     {% include 'partials/portfolio_table_row.html' with item=iten %}
+   {% endfor %}
+   -->
+  </tbody>
+</table>
