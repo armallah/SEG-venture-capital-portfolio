@@ -16,17 +16,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from manager import views
 
-urlpatterns = [path("admin/", admin.site.urls)]
-
-urlpatterns = [path("login/", login.site.urls)]
-
-urlpatterns = [path("signup/", signup.site.urls)]
-
-urlpatterns = [path("home/", home.site.urls)]
-
-urlpatterns = [path("search/", search.site.urls)]
-
-urlpatterns = [path("portfolio/", portfolio.site.urls)]
-
-urlpatterns = [path("clients/", clients.site.urls)]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path('dashboard/', views.dashboard, name = 'dashboard'),
+    path('portfolio/', views.portfolio, name = 'portfolio'),
+]
