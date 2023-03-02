@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>:Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <p>Note: The username should be your email</p>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+        <form action = "{% url 'login' %}" method = "post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type = "submit" value="Login">
+        </form>
+    </body>
+</html>
