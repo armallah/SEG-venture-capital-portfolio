@@ -1,71 +1,77 @@
-{% extends 'base_content.html' %}
+{% extends "base_content.html" %}
+{% load static %}
 
 {% block title %}
-{# <title> {{ request.user.full_name }}'s Dashboard</title> #}
 <title>{{ company.name }} - Company , Funding, Investing & Financials </title>
 {% endblock %}
 
 {% block content %}
+<script>
+    function redirectTo(buttonName) {
+      window.location.href = '/companies/' + '{{ company.name }}' + '/' + buttonName;
+    }
+</script>
+{% comment %} re tab everything {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/companyDetails.css' %}">
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>{{ company.name }}</h1>
-      <p>{{ company.number }} {{ company.country_code }}</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Overview</h3>
+    <div class="row">
+        <div class="header-nav">
+            <h1 class="page-header search-header">{{ company.name }}</h1>
+            <nav class="nav-bar">
+                <div class="button-group">
+                    <button class="button summary-button" onclick="redirectTo('')">Summary</button>
+                    <button class="button" onclick="redirectTo('entities')">Entities</button>
+                    <button class="button" onclick="redirectTo('investors')">Investors</button>
+                </div>
+            </nav>
         </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <h4>Founders</h4>
-              <ul>
-              {% for founder in company.founders.all %}
-                <li>{{ founder.name }}</li>
-              {% endfor %}
-              </ul>
-            </div>
-            <div class="col-md-6">
-              <h4>Investors</h4>
-              <ul>
-              {% for investor in company.investors.all %}
-                <li>{{ investor.name }}</li>
-              {% endfor %}
-              </ul>
-            </div>
+    </div>    
+    <div class="row">
+      <div class="card-container">
+          <div class="card card-about">
+              <h2 class="card-h2">About</h2>
+              <p>You can put infomration here sjfg nsagn afkgjndl kgj nldskjgn ldsfnjg ldsjng ldskjng ldsng dsjng lkdsjg nf</p>
+              <div class="about-card">
+                <p><strong>Country Code:</strong> {{ company.country_code }}</p>
+                <p><strong>Number:</strong> {{ company.number }}</p>
+              </div>
           </div>
+          <div class="card card-highlights">
+              <h2 class="card-h2">Highlights</h2>
+              <p>ajgfnlngfld ngjdn gdjng dsjkng djng ldjnfg ldsjngjkdsng lkdng lkdsjfng ldjkfng ldsjfng ldsfjkng ddjfng </p>
+              <div class="founder-highlights">
+                {% comment %} add more divs to this {% endcomment %}
+                <h2 class="card-h2">Founders</h2>
+                  <ul>
+                    {% for founder in company.founders.all %}
+                      <li>{{ founder.name }}</li>
+                    {% endfor %}
+                  </ul>
 
-          <div class="row">
-            <div class="col-md-12">
-              <h4>Wayra Rights</h4>
-              <ul>
-              {% for right in company.wayra_right.all %}
-                <li>{{ right.name }}</li>
-              {% endfor %}
-              </ul>
-            </div>
+                  <h2 class="card-h2">Investors</h2>
+                    <ul>
+                      {% for investor in company.investors.all %}
+                        <li>{{ investor.name }}</li>
+                      {% endfor %}
+                    </ul>
+
+                    <h2 class="card-h2">Wayra Rights</h2>
+                      <ul>
+                        {% for right in company.wayra_right.all %}
+                          <li>{{ right.name }}</li>
+                        {% endfor %}
+                      </ul>
+              </div>
+              
           </div>
-        </div>
+          <div class="card card-news">
+              <h2 class="card-h2">News</h2>
+              <p>maybe this is useless flkg ldkgm ldfkgm dlfgndjgn djng fldsjng ldjnfg ldjsng lkjdsg nljdnsg </p>
+          </div>
       </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Details</h3>
-        </div>
-        <div class="card-body">
-          <p><strong>Name:</strong> {{ company.name }}</p>
-          <p><strong>Country Code:</strong> {{ company.country_code }}</p>
-          <p><strong>Number:</strong> {{ company.number }}</p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 {% endblock %}
+
+
+  

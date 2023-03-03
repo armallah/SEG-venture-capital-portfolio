@@ -24,7 +24,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name = 'dashboard'),
     path("login" , views.log_in , name="log_in"),
     path('entities/<str:name>/', views.entity_view, name='entity_view'),
-    path('companies/<str:name>/', views.company_view, name='company_view')
+    path('companies/<str:name>/', views.company_view, name='company_view')    
 ]
 
 handler404 = views.error_404
