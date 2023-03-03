@@ -10,3 +10,13 @@ def portfolio(request):
     context = {
     }
     return render(request, 'portfolio.html', context)
+
+def entities(request):
+    context = {
+    }
+    return render(request, 'entities.html', context)
+
+def founders(request):
+    context = {
+    }
+    return render(request, 'founders.html', context)
