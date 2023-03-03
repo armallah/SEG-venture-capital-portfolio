@@ -1,11 +1,29 @@
-<html>
-    <head>
-        <title>Home</title>
-    </head>
-    <body>
-        <h1>Home</h1>
-        <p>Welcome to the Music School Management System</p>
-        <p><a href='{% url "sign_up" %}'>Sign up</a></p>
-        <p><a href='{% url "login" %}'>Log in</a></p>
-    </body>
-</html>
+<!DOCTYPE html>
+  <head>
+    <title>Portfolio management login</title>
+    
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="center">
+      <h1>Login</h1>
+      <form method="post">
+        <div class="txt_field">
+          <input type="text" required>
+          <span></span>
+          <label>Name</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" required>
+          <span></span>
+          <label>Company</label>
+        </div>
+        <p>Forgot Name?</p>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+          Sign-Up Here <a href="signup.html">Signup</a>
+        </div>
+      </form>
+    </div>
+
+  </body>
