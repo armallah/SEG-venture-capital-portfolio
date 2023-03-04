@@ -49,3 +49,7 @@ def company_view(request, name):
 def error_404(request, exception):
     return render(request, '404.html')
 
+def portfolio(request):
+    context = {
+    }
+    return render(request, 'portfolio.html', context)
