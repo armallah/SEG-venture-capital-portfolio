@@ -1,0 +1,25 @@
+{% extends 'base_content.html' %}
+
+{% block title %}
+{# <title> {{ request.user.full_name }}'s Dashboard</title> #}
+<title>{{ entity.name }} - Entity , Funding, Investing & Financials </title>
+{% endblock %}
+
+{% block content %}
+<h1>{{ entity.name }}</h1>
+    <p>Investing companies:</p>
+        <ul>
+        {% for company in entity.invested_company.all %}
+            <li><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></li>
+        {% endfor %}
+        </ul>
+    <p>Founding companies:</p>
+        <ul>
+            {% for company in entity.founding_company.all %}
+                <li><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></li>
+            {% endfor %}
+        </ul>
+{% endblock %}
+
+
+        

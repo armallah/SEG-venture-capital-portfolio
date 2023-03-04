@@ -3,7 +3,7 @@ from django.db import models
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
-
+    
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
