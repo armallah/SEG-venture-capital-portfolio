@@ -3,7 +3,7 @@ from django.db import models
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
-
+    
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
@@ -24,7 +24,7 @@ class Company(models.Model):
             Entity,
             related_name='founding_company'
             )
-    wayra_right: models.Manager["Right"]
+    wayra_right: models.QuerySet["Right"]
 
 
 
