@@ -41,9 +41,11 @@ def entity_view(request, name):
 
 
 def company_view(request, name):
+    
     company = get_object_or_404(Company, name=name)
     
     return render(request, 'company_details.html', {'company': company})
 
 def error_404(request, exception):
     return render(request, '404.html')
+

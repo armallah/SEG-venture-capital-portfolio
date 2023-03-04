@@ -10,6 +10,7 @@
     function redirectTo(buttonName) {
       window.location.href = '/companies/' + '{{ company.name }}' + '/' + buttonName;
     }
+    
 </script>
 {% comment %} re tab everything {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/companyDetails.css' %}">
@@ -20,7 +21,7 @@
             <nav class="nav-bar">
                 <div class="button-group">
                     <button class="button summary-button" onclick="redirectTo('')">Summary</button>
-                    <button class="button" onclick="redirectTo('entities')">Entities</button>
+                    <button class="button" onclick="redirectTo('founders')">Founders</button>
                     <button class="button" onclick="redirectTo('investors')">Investors</button>
                 </div>
             </nav>
