@@ -1,0 +1,23 @@
+
+
+{% block title %}Add Companies{% endblock %}
+
+{% block body %}
+<div>
+  <h2>Upload Companies Spreadsheet: </h2>
+  
+  {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input value="New Company File" type="submit">
+  </form>
+</div>
+{% endblock %}
