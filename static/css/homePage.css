@@ -16,3 +16,22 @@
     font-family: 'TeleExtraLight';
     src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
 }
+
+.top{
+    background-color: #eceaf6;
+}
+
+.middle{
+    background-color: #d4cfe4;
+    height: 100px;
+}
+
+.bottom{
+    background-color: #7a758d;
+    height: 100px;
+}
+
+.logo{
+    padding: 10px;
+    width: 15rem;
+}

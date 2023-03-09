@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wayra UK Venture Capital Portfolio</title>
     <script src="https://kit.fontawesome.com/719e9404f3.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'Wayra-Icon-Black.ico' %}">
     <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}">
 
 </head>
 <body>
+    <div class="top">
+        <img src="{% static 'Wayra-black-on-white.png' %}" alt="Wayra logo" class="logo">
+    </div>
+    <div class="middle"></div>
+    <div class="bottom"></div>
 </body>
 </html>
