@@ -17,6 +17,12 @@
     
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}">
 
+    <script>
+        function loginRedirect(){
+            window.location.href = 'login'
+        }
+    </script>
+
 </head>
 <body>
     <div class="top">
@@ -26,7 +32,7 @@
     background-size: cover; background-position: center;">>
         <h1>Wayra Venture Capital Portfolio Management Suite</h1>
         <h3>Access Wayra's entire investiment portfolio database at the touch of a button!</h3>
-        <button type="button" class="btn btn-dark login">Login</button>
+        <button type="button" class="btn btn-dark login" onclick="loginRedirect()">Login</button>
     </div>
     <div class="bottom"></div>
 </body>
