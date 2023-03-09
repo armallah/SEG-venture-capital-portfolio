@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'TeleBold';
+    src: url('../fonts/TelefonicaWeb-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'TeleRegular';
+    src: url('../fonts/TelefonicaWeb-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'TeleLight';
+    src: url('../fonts/TelefonicaWeb-Light.ttf');
+}
+@font-face {
+    font-family: 'TeleExtraLight';
+    src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
+}
