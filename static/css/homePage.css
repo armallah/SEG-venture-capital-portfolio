@@ -20,17 +20,20 @@
 h1{
     font-size: 5rem;
     margin: 0;
-    padding-top: 45px;
-    padding-bottom: 30px;
+    padding-top: 60px;
+    padding-bottom: 40px;
     font-family: 'TeleBold';
+    color: white;
 }
 
 h3{
     font-size: 2rem;
     margin: 0;
-    padding-bottom: 30px;
+    padding-bottom: 100px;
     font-family: 'TeleRegular';
+    color: white;
 }
+
 .top{
     background-color: #eceaf6;
 }
@@ -38,10 +41,11 @@ h3{
 .middle{
     background-color: #d4cfe4;
     text-align: center;
+    
 }
 
 .bottom{
-    background-color: #7a758d;
+    background-color: black;
     height: 100px;
 }
 
