@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hello, home page or not here.")    
+    return render(request, 'home.html')    
     
 def log_in(request):
     if request.method == "POST":
