@@ -17,13 +17,20 @@
     src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
 }
 
+h1{
+    font-size: 5rem;
+    margin: 0;
+    padding-top: 45px;
+    padding-bottom: 30px;
+    font-family: 'TeleBold';
+}
 .top{
     background-color: #eceaf6;
 }
 
 .middle{
     background-color: #d4cfe4;
-    height: 100px;
+    text-align: center;
 }
 
 .bottom{
