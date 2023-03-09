@@ -27,6 +27,7 @@ def log_in(request):
  
 def dashboard(request):
     context = {
+
     }
     return render(request, 'dashboard.html', context)
 
@@ -51,5 +52,18 @@ def error_404(request, exception):
 
 def portfolio(request):
     context = {
+
     }
     return render(request, 'portfolio.html', context)
+
+def entities(request):
+    context = {
+
+    }
+    return render(request, 'entities.html', context)
+
+def founders(request):
+    context = {
+    
+    }
+    return render(request, 'founders.html', context)
