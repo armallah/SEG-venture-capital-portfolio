@@ -24,6 +24,13 @@ h1{
     padding-bottom: 30px;
     font-family: 'TeleBold';
 }
+
+h3{
+    font-size: 2rem;
+    margin: 0;
+    padding-bottom: 30px;
+    font-family: 'TeleRegular';
+}
 .top{
     background-color: #eceaf6;
 }
