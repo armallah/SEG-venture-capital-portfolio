@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.core.validators import RegexValidator
+from django.forms import ModelForm
 
         
 class LoginForm(forms.Form):
@@ -26,5 +27,7 @@ class LoginForm(forms.Form):
 
     #Add new form to upload excel spreadsheet.
 
-class UploadFileForm(forms.Form):
-    file = forms.FileField()
+class DocumentForm(ModelForm):
+    class Meta:
+        model = Document
+        fields = ['upload']
