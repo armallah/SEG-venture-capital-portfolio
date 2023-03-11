@@ -23,4 +23,9 @@ class LoginForm(forms.Form):
         
     username = forms.CharField(label='', widget=forms.TextInput(attrs=username_attrs))
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs=password_attrs))
+        
+class DocumentForm(ModelForm):
+    class Meta:
+        model = Document
+        fields = ['upload']
 
