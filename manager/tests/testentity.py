@@ -39,10 +39,11 @@ class EntityTestCase(TestCase):
         with self.assertRaises(ValidationError):
             self.entity.full_clean()
 
-    def test_blank_number(self):
-        self.entity.number = ''
-        with self.assertRaises(ValidationError):
-            self.entity.full_clean()
+    ### in requirement number can be blank
+    # def test_blank_number(self):
+    #     self.entity.number = ''
+    #     with self.assertRaises(ValidationError):
+    #         self.entity.full_clean()
 
     def test_name_may_have_50_characters(self):
         self.entity.name = 'a' * 50

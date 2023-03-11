@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 class CompanyTestCase(TestCase):
     def setUp(self):
-        self.company = Company.objects.create(name = "company1", country_code = "UK")
+        self.company = Company.objects.create(name = "company1", country_code = "UK", number = "ABC015")
 
     def test_vaild_company(self):
         try:
@@ -49,19 +49,19 @@ class CompanyTestCase(TestCase):
 
     def test_name_may_have_50_characters(self):
         self.company.name = 'a' * 50
-        self._assert_thing_is_valid(message="name may have 30 characters")
+        self._assert_thing_is_valid(message="name may have 50 characters")
 
     def test_name_must_not_have_more_than_50_characters(self):
         self.company.name = 'a' * 51
-        self._assert_thing_is_invalid(message="name must not have more than 30 characters")
+        self._assert_thing_is_invalid(message="name must not have more than 50 characters")
 
     def test_number_may_have_50_characters(self):
         self.company.number = '1' * 50
-        self._assert_thing_is_valid(message="number may have 30 characters")
+        self._assert_thing_is_valid(message="number may have 50 characters")
 
     def test_number_must_not_have_more_than_50_characters(self):
         self.company.number = '1' * 51
-        self._assert_thing_is_invalid(message="number name must not have more than 30 characters")
+        self._assert_thing_is_invalid(message="number name must not have more than 50 characters")
 
 
     def _assert_thing_is_valid(self, message="A valid thing was rejected"):
