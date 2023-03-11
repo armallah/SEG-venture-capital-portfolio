@@ -1,8 +1,12 @@
 from django.shortcuts import render , redirect
-from django.http import HttpResponse
-from .forms import LoginForm
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import LoginForm, DocumentForm
+from .models import Document, Company, Entity, Investing, Right
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
+import pandas as pd
+import django.core.files
+
 
 # Create your views here.
 
@@ -27,7 +31,6 @@ def log_in(request):
  
 def dashboard(request):
     context = {
-
     }
     return render(request, 'dashboard.html', context)
 
@@ -52,21 +55,9 @@ def error_404(request, exception):
 
 def portfolio(request):
     context = {
-
     }
     return render(request, 'portfolio.html', context)
 
-def entities(request):
-    context = {
-
-    }
-    return render(request, 'entities.html', context)
-
-def founders(request):
-    context = {
-    
-    }
-    return render(request, 'founders.html', context)
 
 #add view(s) to add companies to portfolio.
 def addCompany(request):
