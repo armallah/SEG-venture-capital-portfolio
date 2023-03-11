@@ -30,6 +30,12 @@ class CompanyTestCase(TestCase):
         if(self.company is not None):
             self.assertEqual(company.country_code, "UK")
 
+    def testIsportfolio(self):
+        ecosystem = Company.objects.first()
+        portfolio = Company.objects.create(name = "company2", country_code="UK", wayra_investment = 5)
+        self.assertFalse(ecosystem.isPortfolio())
+        self.assertTrue(portfolio.isPortfolio())
+
 
     def testEmptyEntityRelation(self):
         firstCompany = Company.objects.first()
@@ -76,4 +82,4 @@ class CompanyTestCase(TestCase):
             self.fail(message)
         except ValidationError:
             pass
-    
+ 

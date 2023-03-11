@@ -29,6 +29,7 @@ urlpatterns = [
     path('portfolio/', views.portfolio, name = 'portfolio'),
     path('entities/', views.entities, name = 'entities'),
     path('founders/', views.founders, name = 'founders'),
+    path('add/company', views.addCompany, name = 'add_company')
 ]
 
 

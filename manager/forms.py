@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.core.validators import RegexValidator
+from django.forms import ModelForm
 
         
 class LoginForm(forms.Form):
@@ -23,4 +24,9 @@ class LoginForm(forms.Form):
         
     username = forms.CharField(label='', widget=forms.TextInput(attrs=username_attrs))
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs=password_attrs))
+        
+class DocumentForm(ModelForm):
+    class Meta:
+        model = Document
+        fields = ['upload']
 
