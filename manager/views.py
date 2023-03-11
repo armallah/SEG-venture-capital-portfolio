@@ -50,6 +50,18 @@ def company_view(request, name):
     
     return render(request, 'company_details.html', {'company': company})
 
+def entities(request):
+    context = {
+
+    }
+    return render(request, 'entities.html', context)
+
+def founders(request):
+    context = {
+
+    }
+    return render(request, 'founders.html', context)
+
 def error_404(request, exception):
     return render(request, '404.html')
 
