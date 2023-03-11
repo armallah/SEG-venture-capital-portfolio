@@ -26,6 +26,9 @@ class Company(models.Model):
             )
     wayra_right: models.QuerySet["Right"]
 
+    def __str__(self):
+        return self.number + str(self.founders)
+
 
 
 class Investing(models.Model):
@@ -34,7 +37,19 @@ class Investing(models.Model):
 
     amount = models.DecimalField(max_digits = 20, decimal_places=3)
 
+    def __str__(self):
+        return self.name
+
+
 class Right(models.Model):
     name = models.CharField(max_length=50)
     holding_right = models.ManyToManyField(Company, related_name="wayra_right")
-    
+
+class Document(models.Model):
+    upload = models.FileField(upload_to='documents/')
+
+    @property
+    def file_url(self):
+        if self.file and hasattr(self.file, 'url'):
+            return self.file.path
+
