@@ -14,6 +14,7 @@ class Company(models.Model):
     name = models.CharField(max_length=50)
     number = models.CharField(max_length=50, blank=False, null=False)
     country_code = models.CharField(max_length=15)
+    wayra_investment = models.DecimalField(max_digits=10, decimal_places=3, default=0.0)
     investors = models.ManyToManyField(
             Entity,
             through='Investing',
@@ -25,6 +26,9 @@ class Company(models.Model):
             related_name='founding_company'
             )
     wayra_right: models.QuerySet["Right"]
+
+    def isPortfolio(self):
+        return self.wayra_investment != 0
 
     def __str__(self):
         return self.number + str(self.founders)

@@ -26,3 +26,9 @@ class CompanyTestCase(TestCase):
         if(firstCompany is not None):
             self.assertEqual(firstCompany.founders.count(), 0)
             self.assertEqual(firstCompany.investors.count(), 0)
+
+    def testIsportfolio(self):
+        ecosystem = Company.objects.first()
+        portfolio = Company.objects.create(name = "company2", country_code="UK", wayra_investment = 5)
+        self.assertFalse(ecosystem.isPortfolio())
+        self.assertTrue(portfolio.isPortfolio())
