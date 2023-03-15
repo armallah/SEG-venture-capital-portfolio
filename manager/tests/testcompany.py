@@ -69,6 +69,22 @@ class CompanyTestCase(TestCase):
         self.company.number = '1' * 51
         self._assert_thing_is_invalid(message="number name must not have more than 50 characters")
 
+    def test_country_code_may_have_15_characters(self):
+        self.company.number = '1' * 15
+        self._assert_thing_is_valid(message="country code may have 15 characters")
+
+    def test_country_code_must_not_have_more_than_15_characters(self):
+        self.company.number = '1' * 16
+        self._assert_thing_is_invalid(message="country code name must not have more than 15 characters")
+
+    def test_wayra_investment_may_have_10_characters(self):
+        self.company.number = 1111111111
+        self._assert_thing_is_valid(message="wayra_investment may have 10 characters")
+
+    def test_wayra_investment_must_not_have_more_than_10_characters(self):
+        self.company.number = 11111111111
+        self._assert_thing_is_invalid(message="wayra_investment name must not have more than 10 characters")
+
 
     def _assert_thing_is_valid(self, message="A valid thing was rejected"):
         try:
