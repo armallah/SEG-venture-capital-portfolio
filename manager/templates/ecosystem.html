@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Ecosystem</title>
+{% endblock %}
+
+{% block contents %}
+<h1 class="mt-4">Wayra Ecosystem</h1>
+{% include 'partials/ecosystem_table.html' with data=data %}
+{% include 'partials/tables_javascript.html' %}
+{% endblock %}
