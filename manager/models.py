@@ -54,6 +54,18 @@ class Investing(models.Model):
         return self.name
 
 
+class Round(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    round_number = models.IntegerField(max_length=5)
+    equity = models.DecimalField(max_digits=20, decimal_places=3)
+    wayra_equity=models.DecimalField(max_digits=20, decimal_places=3)
+
+    pre_money_valuation = models.DecimalField(max_digits=20, decimal_places=3)
+
+    round_date = models.DateField()
+
+
+
 class Right(models.Model):
     name = models.CharField(max_length=50)
     holding_right = models.ManyToManyField(Company, related_name="wayra_right")

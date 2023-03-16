@@ -12,11 +12,9 @@ class LogInViewTestCase(TestCase):
     def setUp(self):
         self.url = reverse('log_in')
         self.user = User.objects.create_user(
-            'johndoe@example.org',
-            first_name = 'John',
-            last_name = 'Doe',
-            password = 'Password1234',
             user_type = 1,
+            username = 'johndoe@example.org', 
+            password =  'Password1234',
         )
         self.form_input = { 'username': 'johndoe@example.org', 'password': 'Password1234'}
         self.redirect_url = reverse('dashboard')
