@@ -6,6 +6,11 @@ from django.contrib.auth import authenticate , login
 from django.contrib import messages
 import pandas as pd
 import django.core.files
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
@@ -29,6 +34,7 @@ def log_in(request):
     form = LoginForm()
     return render(request, 'login.html' , {'form':form})
 
+# @login_required
 def dashboard(request):
     context = {
     }
@@ -37,25 +43,27 @@ def dashboard(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Entity, Company
 
-
+# @login_required
 def entity_view(request, name):
     entity = get_object_or_404(Entity, name=name)
 
     return render(request, 'entity_details.html', {'entity': entity})
 
-
+# @login_required
 def company_view(request, name):
 
     company = get_object_or_404(Company, name=name)
 
     return render(request, 'company_details.html', {'company': company})
 
+# @login_required
 def entities(request):
     context = {
 
     }
     return render(request, 'entities.html', context)
 
+# @login_required
 def founders(request):
     context = {
 
@@ -65,17 +73,19 @@ def founders(request):
 def error_404(request, exception):
     return render(request, '404.html')
 
+# @login_required
 def portfolio(request):
     context = {
     }
     return render(request, 'portfolio.html', context)
 
+# @login_required
 def ecosystem(request):
     context = {
     }
     return render(request, 'ecosystem.html', context)
 
-
+# @login_required
 #add view(s) to add companies to portfolio.
 def addCompany(request):
     if request.method == 'POST':
