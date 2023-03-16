@@ -21,7 +21,6 @@ from manager import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home , name="home"),
-    path('dashboard/', views.dashboard, name = 'dashboard'),
     path("login/" , views.log_in , name="log_in"),
     path('entities/<str:name>/', views.entity_view, name='entity_view'),
     path('companies/<str:name>/', views.company_view, name='company_view'),
@@ -29,6 +28,7 @@ urlpatterns = [
     path('portfolio/', views.portfolio, name = 'portfolio'),
     path('entities/', views.entities, name = 'entities'),
     path('founders/', views.founders, name = 'founders'),
+    path('ecosystem/', views.ecosystem, name = 'ecosystem'),
     path('add/company', views.addCompany, name = 'add_company')
 ]
 
