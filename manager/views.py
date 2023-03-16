@@ -11,8 +11,8 @@ import django.core.files
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hello, home page or not here.")    
-    
+    return HttpResponse("Hello, home page or not here.")
+
 def log_in(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -25,10 +25,10 @@ def log_in(request):
                 return redirect('dashboard')
             else:
                 messages.add_message(request, messages.ERROR, "The credentials provided were invalid!")
-            
+
     form = LoginForm()
     return render(request, 'login.html' , {'form':form})
- 
+
 def dashboard(request):
     context = {
     }
@@ -37,17 +37,17 @@ def dashboard(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Entity, Company
 
-    
+
 def entity_view(request, name):
     entity = get_object_or_404(Entity, name=name)
-    
+
     return render(request, 'entity_details.html', {'entity': entity})
 
 
 def company_view(request, name):
-    
+
     company = get_object_or_404(Company, name=name)
-    
+
     return render(request, 'company_details.html', {'company': company})
 
 def entities(request):
@@ -70,6 +70,11 @@ def portfolio(request):
     }
     return render(request, 'portfolio.html', context)
 
+def ecosystem(request):
+    context = {
+    }
+    return render(request, 'ecosystem.html', context)
+
 
 #add view(s) to add companies to portfolio.
 def addCompany(request):
@@ -78,7 +83,7 @@ def addCompany(request):
         if form.is_valid():
             #convert from model form to regular form.
             filename = str(request.FILES)
-            
+
             #print("banana")
             #spreadsheet = Document.upload.path
             df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string'})
@@ -134,10 +139,10 @@ def addCompany(request):
                             Founders.append(founder)
                             founder.save()
                             #create + add this investor to created company
-                        
+
                         #return HttpResponse(Entity.objects.count())
                         #return HttpResponse(Company.objects.filter(name=name).first().name)
-                        
+
                     rightsList = df.iloc[x, 5].split(",")
                     defaultQuery = Right.objects.filter(name="Bananarama")
                     for right in rightsList:
@@ -146,11 +151,11 @@ def addCompany(request):
                     #rights = Right.objects.filter(5 == 2)
                     #company.wayra_right.add(defaultQuery)
                     company.save()
-                
-                
+
+
                 #company = Company.objects.create(name = name, number = registeredNumber, country_code = countryCode)
 
-                    
+
             #Columns 1-3 for each row should be fairly straightforward. (df = pd.readExcel(excelFile), then use df[0] to iterate through every row.)
             #for Column 4, create an entity object with this company name as "company", their name as investor, and the amount as the amount.
             #for Column 5, create an entity with this company as "founding company" and their name as "invested company"
