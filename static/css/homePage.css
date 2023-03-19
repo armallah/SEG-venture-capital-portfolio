@@ -35,6 +35,15 @@ h3{
     color: white;
 }
 
+p{
+    color: rgb(142, 139, 139);
+    padding-bottom: 20px;
+}
+
+p:hover{
+    color: white;
+}
+
 .top{
     background-color: #eceaf6;
 }
@@ -48,12 +57,22 @@ h3{
 
 .bottom{
     background-color: black;
-    height: 100px;
+    text-align: center;
 }
 
 .logo{
     padding: 10px;
     width: 15rem;
+}
+
+.fa-brands{
+    padding: 30px 40px 20px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.fa-brands:hover{
+    color: #4d8eef;
 }
 
 .login{
@@ -69,6 +88,7 @@ h3{
 .login:hover{
     background-color:rgba(0, 0, 0, 0.479);
 }
+
 
 @keyframes fadeIn {
     0% { opacity: 0; }
