@@ -10,7 +10,7 @@ def get_table() -> Table:
     table = Table(api_key, base_id, table_name)
     return table
 
-def get_company(comp_number : str) -> dict | None:
+def get_company(comp_number : str):
     table = get_table()
     company_airtable: dict | None = table.first(formula = match({'Wayra ID Link': comp_number}))
 
