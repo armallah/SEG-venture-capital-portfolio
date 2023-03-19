@@ -21,17 +21,15 @@ class CompanyTestCase(TestCase):
             self.fail("company was not created successfully")
 
     def testName(self):
-        company = Company.objects.first()
-        if(self.company is not None):
-            self.assertEqual(company.name, "company1")
+        company = Company.objects.first() or self.fail("no company found")
+        self.assertEqual(company.name, "company1")
 
     def testCountryCode(self):
-        company = Company.objects.first()
-        if(self.company is not None):
-            self.assertEqual(company.country_code, "UK")
+        company = Company.objects.first() or self.fail("no company found")
+        self.assertEqual(company.country_code, "UK")
 
     def testIsportfolio(self):
-        ecosystem = Company.objects.first()
+        ecosystem = Company.objects.first() or self.fail("no ecosystem found")
         portfolio = Company.objects.create(name = "company2", country_code="UK", wayra_investment = 5)
         self.assertFalse(ecosystem.isPortfolio())
         self.assertTrue(portfolio.isPortfolio())
@@ -70,20 +68,20 @@ class CompanyTestCase(TestCase):
         self._assert_thing_is_invalid(message="number name must not have more than 50 characters")
 
     def test_country_code_may_have_15_characters(self):
-        self.company.number = '1' * 15
+        self.company.country_code = '1' * 15
         self._assert_thing_is_valid(message="country code may have 15 characters")
 
     def test_country_code_must_not_have_more_than_15_characters(self):
-        self.company.number = '1' * 16
+        self.company.country_code = '1' * 16
         self._assert_thing_is_invalid(message="country code name must not have more than 15 characters")
 
     def test_wayra_investment_may_have_10_characters(self):
-        self.company.number = 1111111111
-        self._assert_thing_is_valid(message="wayra_investment may have 10 characters")
+        self.company.wayra_investment = 1111111
+        self._assert_thing_is_valid(message="wayra_investment may have 7 digits before decimal points")
 
     def test_wayra_investment_must_not_have_more_than_10_characters(self):
-        self.company.number = 11111111111
-        self._assert_thing_is_invalid(message="wayra_investment name must not have more than 10 characters")
+        self.company.wayra_investment = 111111111
+        self._assert_thing_is_invalid(message="wayra_investment may not have more than 7 digits before decimal points")
 
 
     def _assert_thing_is_valid(self, message="A valid thing was rejected"):

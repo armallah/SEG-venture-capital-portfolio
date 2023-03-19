@@ -1,5 +1,9 @@
+import datetime
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from pandas._libs.tslibs.parsing import parse_datetime_string
+
 # Create your models here.
 
 class User(AbstractUser):
@@ -24,6 +28,7 @@ class Company(models.Model):
     number = models.CharField(max_length=50, blank=False, null=False)
     country_code = models.CharField(max_length=15)
     wayra_investment = models.DecimalField(max_digits=10, decimal_places=3, default=0.0)
+    description = models.CharField(max_length=200, blank=True, null=True)
     investors = models.ManyToManyField(
             Entity,
             through='Investing',
@@ -35,13 +40,21 @@ class Company(models.Model):
             related_name='founding_company'
             )
     wayra_right: models.QuerySet["Right"]
+    rounds = models.QuerySet["Round"]
+
+    def update_comp(self, new_info: dict):
+        self.name = new_info['Company']
+        self.country_code = new_info['Hub']
+        self.description = new_info['Description (ENG)']
+        self.wayra_investment = new_info['Wayra Total Investment (ML)']
+        self.save()
+
 
     def isPortfolio(self):
         return self.wayra_investment != 0
 
     def __str__(self):
-        return self.number + str(self.founders)
-
+        return self.name
 
 
 class Investing(models.Model):
@@ -50,21 +63,27 @@ class Investing(models.Model):
 
     amount = models.DecimalField(max_digits = 20, decimal_places=3)
 
-    def __str__(self):
-        return self.name
 
 
 class Round(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    round_number = models.IntegerField(max_length=5)
-    equity = models.DecimalField(max_digits=20, decimal_places=3)
-    wayra_equity=models.DecimalField(max_digits=20, decimal_places=3)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="rounds")
+    round_number = models.PositiveSmallIntegerField(validators=[MinValueValidator(0)])
+    equity = models.DecimalField(max_digits=20, decimal_places=3, validators = [MinValueValidator(0)], default=0)
+    wayra_equity=models.DecimalField(max_digits=20, decimal_places=3, validators = [MinValueValidator(0)], default=0)
 
-    pre_money_valuation = models.DecimalField(max_digits=20, decimal_places=3)
+    pre_money_valuation = models.DecimalField(max_digits=20, decimal_places=3, validators = [MinValueValidator(0)], default=0)
 
-    round_date = models.DateField()
+    round_date = models.DateField(null=True)
+    def update_round(self, new_info: dict):
+        self.equity = new_info.get(f"(Round {self.round_number}) - Investors Equity") or 0
+        self.wayra_equity = new_info.get(f"(Round {self.round_number}) - Wayra Follow-on") or 0
+        date_str:str = new_info.get(f"(Round {self.round_number}) - Date Link") or ""
+        self.round_date = parse_datetime_string(date_str, dayfirst=True, yearfirst=False) 
+        self.pre_money_valuation = new_info.get(f"(Round {self.round_number}) - Pre-money valuation") or 0
+        self.save()
 
-
+    def __str__(self) -> str:
+        return f"{self.company.name} Round:{self.round_number}"
 
 class Right(models.Model):
     name = models.CharField(max_length=50)
@@ -73,8 +92,8 @@ class Right(models.Model):
 class Document(models.Model):
     upload = models.FileField(upload_to='documents/')
 
-    @property
-    def file_url(self):
-        if self.file and hasattr(self.file, 'url'):
-            return self.file.path
+#     @property
+#     def file_url(self):
+#         if self.file and hasattr(self.file, 'url'):
+#             return self.file.path
 
