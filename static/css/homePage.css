@@ -24,6 +24,7 @@ h1{
     padding-bottom: 40px;
     font-family: 'TeleBold';
     color: white;
+    
 }
 
 h3{
@@ -41,7 +42,8 @@ h3{
 .middle{
     background-color: #d4cfe4;
     text-align: center;
-    
+    animation-name: fadeIn;
+    animation-duration: 5s;
 }
 
 .bottom{
@@ -67,3 +69,10 @@ h3{
 .login:hover{
     background-color:rgba(0, 0, 0, 0.479);
 }
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  
