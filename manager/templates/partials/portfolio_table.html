@@ -11,20 +11,15 @@
       <th>Registered Number</th>
       <th>Country</th>
       <th>Documents</th>
-      <th>Wayra Investment</th>
       <th>Holding Rights</th>
-      <th>Description</th>
       <th>Total Founders</th>
       <th>Total Investors</th>
-      <th>Total Rounds</th>
     </tr>
   </thead>
   <tbody>
     <!-- {% include 'partials/tempPortfolioTable.html' %} -->
-
    {% for item in data %}
      {% include 'partials/portfolio_table_row.html' with item=item %}
    {% endfor %}
-
   </tbody>
 </table>
