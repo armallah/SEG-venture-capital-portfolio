@@ -49,7 +49,7 @@
                    <li><a href="#">Profile</a></li>
                    <li><a href="#">Logout</a></li>
                    <li role="separator" class="divider"></li>
-                   <li><a>Name Surname</a></li>
+                   <li><a>{{ request.user.full_name}}</a></li>
                  </ul>
                </div>
              </div>
@@ -72,9 +72,9 @@
                  </a>
                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                    <li><a href="#">Profile</a></li>
-                   <li><a href="#">Logout</a></li>
+                   <li><a href="{% url 'log_out'%}">Logout</a></li>
                    <li role="separator" class="divider"></li>
-                   <li><a>Name Surname</a></li>
+                   <li><a>{{ request.user.full_name}}</a></li>
                  </ul>
                </li>
              </ul>
