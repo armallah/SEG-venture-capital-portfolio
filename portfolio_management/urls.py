@@ -32,6 +32,7 @@ urlpatterns = [
     path('users/', views.users, name = 'users'),
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
+    path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
     path('add/company', views.addCompany, name = 'add_company')
 ]
 
