@@ -1,5 +1,6 @@
 <tr>
   <td style="text-align: center;">{{ item.id }}</td>
+  <td><a href="{% url 'adminEditUser' item.id %}">{{ item.full_name }}</a></td> <!--Click to edit admin user-->
   <td>{{ item.first_name }}</td>
   <td>{{ item.last_name }}</td>
   <td>{{ item.email }}</td>
