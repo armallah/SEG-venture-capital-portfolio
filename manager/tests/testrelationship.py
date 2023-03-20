@@ -27,12 +27,12 @@ class InvestingTestCase(TestCase):
         self.assertEqual(investing.investor, entity)
 
     def test_amount_may_have_20_characters(self):
-        self.investing.amount = 11111111111111111111
-        self._assert_thing_is_valid(message="amount may have 20 characters")
+        self.investing.amount = 11111111111111111
+        self._assert_thing_is_valid(message="amount may have 17 digits before decimal points")
 
     def test_amount_must_not_have_more_than_20_characters(self):
-        self.investing.amount = 111111111111111111111
-        self._assert_thing_is_invalid(message="amount name must not have more than 20 characters")
+        self.investing.amount = 111111111111111111
+        self._assert_thing_is_invalid(message="amount name must not have more than 17 digits before decimal points")
 
 
     def _assert_thing_is_valid(self, message="A valid thing was rejected"):
