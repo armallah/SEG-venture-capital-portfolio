@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, DocumentForm
-from .models import Document, Company, Entity, Investing, Right
+from .forms import LoginForm, DocumentForm, AddNewUser
+from .models import Document, Company, Entity, Investing, Right, User
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
 import pandas as pd
@@ -11,6 +11,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
+from django.urls import reverse
+
 
 
 # Create your views here.
@@ -75,7 +77,7 @@ def error_404(request, exception):
 
 # @login_required
 def portfolio(request):
-    portfolioCompanies = Companies.objects.all().filter(wayra_investment!=0) #.order_by('date')
+    portfolioCompanies = Company.objects.all() #.filter(wayra_investment!=0) #.order_by('date')
     context = {
         'data' : portfolioCompanies,
     }
@@ -83,11 +85,46 @@ def portfolio(request):
 
 # @login_required
 def ecosystem(request):
-    ecosystemCompanies = Companies.objects.all().filter(wayra_investment==0) #.order_by('date')
+    ecosystemCompanies = Company.objects.all() #.filter(wayra_investment==0) #.order_by('date')
     context = {
         'data' : ecosystemCompanies,
     }
     return render(request, 'ecosystem.html', context)
+
+# @login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def users(request):
+    allUsers = User.objects.all().filter(user_type=1) #.exclude(id=request.user.id).order_by('id')
+    context = {
+        'data' : allUsers,
+    }
+    print(allUsers)
+    return render(request, 'users.html', context)
+
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminAddUser(request):
+    if request.method == 'POST':
+        form = AddNewUser(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'New User added successfully.')
+            form = AddNewUser()
+        # if errors, show error message
+        # messages.add_message(request, messages.ERROR, "There are some errors.")
+    else:
+        form = AddNewUser()
+    context = {
+        'form': form
+    }
+    return render(request, 'admin_add_user.html', context)
+
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminDeleteUser(request, userID):
+    account = User.objects.get(id=userID)
+    account.delete()
+    return HttpResponseRedirect(reverse('users'))
 
 # @login_required
 #add view(s) to add companies to portfolio.
