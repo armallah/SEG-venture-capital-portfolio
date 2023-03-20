@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.urls import reverse
+from django.contrib.auth import logout
 
 
 
@@ -19,6 +20,10 @@ from django.urls import reverse
 
 def home(request):
     return HttpResponse("Hello, home page or not here.")
+
+def log_out(request): # logs out the user and redirects to home page
+    logout(request)
+    return redirect('home')
 
 def log_in(request):
     if request.method == "POST":
