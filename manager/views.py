@@ -1,12 +1,19 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, DocumentForm
-from .models import Document, Company, Entity, Investing, Right
+from .forms import LoginForm, DocumentForm, AddNewUser
+from .models import Document, Company, Entity, Investing, Right, User
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
-from django.db.models import Q
 import pandas as pd
 import django.core.files
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
+from django.urls import reverse
+from django.contrib.auth import logout
+
 
 
 # Create your views here.
@@ -34,6 +41,7 @@ def log_in(request):
     form = LoginForm()
     return render(request, 'login.html' , {'form':form})
 
+# @login_required
 def dashboard(request):
     context = {
     }
@@ -42,25 +50,27 @@ def dashboard(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Entity, Company
 
-
+# @login_required
 def entity_view(request, name):
     entity = get_object_or_404(Entity, name=name)
 
     return render(request, 'entity_details.html', {'entity': entity})
 
-
+# @login_required
 def company_view(request, name):
 
     company = get_object_or_404(Company, name=name)
 
     return render(request, 'company_details.html', {'company': company})
 
+# @login_required
 def entities(request):
     context = {
 
     }
     return render(request, 'entities.html', context)
 
+# @login_required
 def founders(request):
     context = {
 
@@ -70,19 +80,84 @@ def founders(request):
 def error_404(request, exception):
     return render(request, '404.html')
 
+# @login_required
 def portfolio(request):
+    portfolioCompanies = Company.objects.all() #.filter(wayra_investment!=0) #.order_by('date')
     context = {
-        "data" : Company.objects.filter(~Q(wayra_investment = 0))
+        'data' : portfolioCompanies,
     }
     return render(request, 'portfolio.html', context)
 
+# @login_required
 def ecosystem(request):
+    ecosystemCompanies = Company.objects.all() #.filter(wayra_investment==0) #.order_by('date')
     context = {
-        "data" : Company.objects.filter(wayra_investment = 0)
+        'data' : ecosystemCompanies,
     }
     return render(request, 'ecosystem.html', context)
 
+# @login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def users(request):
+    allUsers = User.objects.all().filter(user_type=1) #.exclude(id=request.user.id).order_by('id')
+    context = {
+        'data' : allUsers,
+    }
+    print(allUsers)
+    return render(request, 'users.html', context)
 
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminAddUser(request):
+    if request.method == 'POST':
+        form = AddNewUser(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'New User added successfully.')
+            form = AddNewUser()
+        # if errors, show error message
+        # messages.add_message(request, messages.ERROR, "There are some errors.")
+    else:
+        form = AddNewUser()
+    context = {
+        'form': form
+    }
+    return render(request, 'admin_add_user.html', context)
+
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminEditUser(request, userID):
+    account = User.objects.get(id=userID)
+    if request.method == 'POST':
+        form = AddNewUser(request.POST, instance=account)
+        if form.is_valid():
+            account.first_name = form.cleaned_data.get('first_name')
+            account.last_name = form.cleaned_data.get('last_name')
+            account.username = form.cleaned_data.get('email')
+            account.email = form.cleaned_data.get('email')
+            account.save()
+            account.set_password(form.cleaned_data.get('password'))
+            account.save()
+            messages.success(request, 'User updated successfully.')
+            form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
+            # return redirect('directorViewTerms')
+    else:
+        form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
+    context = {
+        'form': form,
+        'account': account,
+    }
+
+    return render(request, 'admin_edit_user.html', context)
+
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminDeleteUser(request, userID):
+    account = User.objects.get(id=userID)
+    account.delete()
+    return HttpResponseRedirect(reverse('users'))
+
+# @login_required
 #add view(s) to add companies to portfolio.
 def addCompany(request):
     if request.method == 'POST':
