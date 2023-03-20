@@ -4,6 +4,7 @@ from .forms import LoginForm, DocumentForm
 from .models import Document, Company, Entity, Investing, Right
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
+from django.db.models import Q
 import pandas as pd
 import django.core.files
 
@@ -67,11 +68,13 @@ def error_404(request, exception):
 
 def portfolio(request):
     context = {
+        "data" : Company.objects.filter(~Q(wayra_investment = 0))
     }
     return render(request, 'portfolio.html', context)
 
 def ecosystem(request):
     context = {
+        "data" : Company.objects.filter(wayra_investment = 0)
     }
     return render(request, 'ecosystem.html', context)
 
