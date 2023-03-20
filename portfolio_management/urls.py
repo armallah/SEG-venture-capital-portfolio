@@ -31,7 +31,6 @@ urlpatterns = [
     path('entities/', views.entities, name = 'entities'),
     path('founders/', views.founders, name = 'founders'),
     path('ecosystem/', views.ecosystem, name = 'ecosystem'),
-    path('users/', views.users, name = 'users'),
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
