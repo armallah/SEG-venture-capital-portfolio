@@ -12,6 +12,10 @@ class User(AbstractUser):
         (2, 'admin'),
     )
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
+
+    def full_name(self):
+        return (self.first_name + " " + self.last_name)
+
     pass
 
 class Entity(models.Model):
