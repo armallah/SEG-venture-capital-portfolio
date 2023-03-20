@@ -64,7 +64,7 @@ body,.container {
 #page-content-wrapper {
   padding-left: 0;
   margin-left: 0;
-  width: 100%;
+  width: auto;
   height: auto;
 
   /* position: absolute; */
@@ -79,6 +79,11 @@ body,.container {
 #wrapper.toggled #page-content-wrapper {
   position: relative;
   margin-right: 0px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  width: auto;
 }
 
 .navbar {
@@ -154,6 +159,7 @@ body,.container {
   }
   #wrapper.toggled {
      padding-left: 0;
+     width: auto;
   }
   #sidebar-wrapper {
      width: 150px;
@@ -174,11 +180,17 @@ body,.container {
      -moz-transition: all 0.5s ease;
      -o-transition: all 0.5s ease;
      transition: all 0.5s ease;
+     width: auto;
   }
   #wrapper.toggled #page-content-wrapper {
      position: relative;
      margin-right: 0;
      padding-left: 150px;
+     -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+     -o-transition: all 0.5s ease;
+     transition: all 0.5s ease;
+     width: auto;
   }
   #wrapper.toggled-2 #page-content-wrapper {
      position: relative;
