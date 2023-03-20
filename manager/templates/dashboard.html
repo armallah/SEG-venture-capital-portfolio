@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block contents %}
-<h1 class="mt-4">Firstname's Dashboard</h1>
+<h1 class="mt-4">{{ request.user.full_name}}'s Dashboard</h1>
 
 <div class="row gx-5">
   {# <h1>{{ request.user.full_name}}'s Dashboard</h1> #}

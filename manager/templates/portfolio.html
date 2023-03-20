@@ -7,6 +7,37 @@
 
 {% block contents %}
 <h1 class="mt-4">Wayra Investment Portfolio</h1>
+
+<h1></h1>
+
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add new records <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Manual Entry</a></li>
+    <li><a href="#">File Upload</a></li>
+  </ul>
+</div>
+
+<!-- Split button -->
+<!--
+<div class="btn-group">
+  <button type="button" class="btn">Add new records</button>
+  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Manual Entry</a></li>
+    <li><a href="#">File Upload</a></li>
+  </ul>
+</div>
+-->
+
+<h1></h1>
+
 {% include 'partials/portfolio_table.html' with data=data %}
 {% include 'partials/tables_javascript.html' %}
 {% endblock %}
