@@ -75,13 +75,17 @@ def error_404(request, exception):
 
 # @login_required
 def portfolio(request):
+    portfolioCompanies = Companies.objects.all().filter(wayra_investment!=0) #.order_by('date')
     context = {
+        'data' : portfolioCompanies,
     }
     return render(request, 'portfolio.html', context)
 
 # @login_required
 def ecosystem(request):
+    ecosystemCompanies = Companies.objects.all().filter(wayra_investment==0) #.order_by('date')
     context = {
+        'data' : ecosystemCompanies,
     }
     return render(request, 'ecosystem.html', context)
 
