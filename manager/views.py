@@ -21,9 +21,9 @@ from django.contrib.auth import logout
 def home(request):
     return HttpResponse("Hello, home page or not here.")
 
-def log_out(request): # logs out the user and redirects to home page
+def log_out(request): #logs out the user and redirects to home page
     logout(request)
-    return redirect('home')
+    return redirect('log_in')
 
 def log_in(request):
     if request.method == "POST":
