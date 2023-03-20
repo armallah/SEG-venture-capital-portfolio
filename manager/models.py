@@ -16,7 +16,7 @@ class User(AbstractUser):
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
-    
+
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
@@ -49,7 +49,6 @@ class Company(models.Model):
         self.wayra_investment = new_info['Wayra Total Investment (ML)']
         self.save()
 
-
     def isPortfolio(self):
         return self.wayra_investment != 0
 
@@ -63,7 +62,8 @@ class Investing(models.Model):
 
     amount = models.DecimalField(max_digits = 20, decimal_places=3)
 
-
+    def get_amount(self):
+        return self.amount
 
 class Round(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="rounds")
@@ -78,7 +78,7 @@ class Round(models.Model):
         self.equity = new_info.get(f"(Round {self.round_number}) - Investors Equity") or 0
         self.wayra_equity = new_info.get(f"(Round {self.round_number}) - Wayra Follow-on") or 0
         date_str:str = new_info.get(f"(Round {self.round_number}) - Date Link") or ""
-        self.round_date = parse_datetime_string(date_str, dayfirst=True, yearfirst=False) 
+        self.round_date = parse_datetime_string(date_str, dayfirst=True, yearfirst=False)
         self.pre_money_valuation = new_info.get(f"(Round {self.round_number}) - Pre-money valuation") or 0
         self.save()
 
@@ -96,4 +96,3 @@ class Document(models.Model):
 #     def file_url(self):
 #         if self.file and hasattr(self.file, 'url'):
 #             return self.file.path
-
