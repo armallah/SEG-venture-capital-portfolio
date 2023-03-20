@@ -121,6 +121,32 @@ def adminAddUser(request):
 
 #@login_required
 #@user_passes_test(admin_test, login_url='adminProhibitted')
+def adminEditUser(request, userID):
+    account = User.objects.get(id=userID)
+    if request.method == 'POST':
+        form = AddNewUser(request.POST, instance=account)
+        if form.is_valid():
+            account.first_name = form.cleaned_data.get('first_name')
+            account.last_name = form.cleaned_data.get('last_name')
+            account.username = form.cleaned_data.get('email')
+            account.email = form.cleaned_data.get('email')
+            account.save()
+            account.set_password(form.cleaned_data.get('password'))
+            account.save()
+            messages.success(request, 'User updated successfully.')
+            form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
+            # return redirect('directorViewTerms')
+    else:
+        form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
+    context = {
+        'form': form,
+        'account': account,
+    }
+
+    return render(request, 'admin_edit_user.html', context)
+
+#@login_required
+#@user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDeleteUser(request, userID):
     account = User.objects.get(id=userID)
     account.delete()
