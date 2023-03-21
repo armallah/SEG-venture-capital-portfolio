@@ -37,7 +37,7 @@ h3{
 
 p{
     color: rgb(142, 139, 139);
-    padding-bottom: 20px;
+    padding-bottom: 25px;
 }
 
 p:hover{
@@ -49,7 +49,6 @@ p:hover{
 }
 
 .middle{
-    background-color: #d4cfe4;
     text-align: center;
     animation-name: fadeIn;
     animation-duration: 5s;
@@ -62,7 +61,7 @@ p:hover{
 
 .logo{
     padding: 10px;
-    width: 15rem;
+    width: 8rem;
 }
 
 .fa-brands{
