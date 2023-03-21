@@ -180,9 +180,9 @@ def addCompany(request):
             df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string'})
             #dat = df.shape
             dat = df.iloc[1,1]
-            Company.objects.all().delete()
-            Entity.objects.all().delete()
-            Investing.objects.all().delete()
+            #Company.objects.all().delete()
+            #Entity.objects.all().delete()
+            #Investing.objects.all().delete()
             #return HttpResponse(str(dat))
             #return HttpResponse(str(df.shape[0]))
             for x in range(df.shape[0]):
