@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'TeleBold';
+    src: url('../fonts/TelefonicaWeb-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'TeleRegular';
+    src: url('../fonts/TelefonicaWeb-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'TeleLight';
+    src: url('../fonts/TelefonicaWeb-Light.ttf');
+}
+@font-face {
+    font-family: 'TeleExtraLight';
+    src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
+}
+
+h1{
+    font-size: 5rem;
+    margin: 0;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    font-family: 'TeleBold';
+    color: white;
+    
+}
+
+h3{
+    font-size: 2rem;
+    margin: 0;
+    padding-bottom: 70px;
+    font-family: 'TeleRegular';
+    color: white;
+}
+
+p{
+    color: rgb(142, 139, 139);
+    padding-bottom: 25px;
+}
+
+p:hover{
+    color: white;
+}
+
+.top{
+    background-color: #eceaf6;
+}
+
+.middle{
+    text-align: center;
+    animation-name: fadeIn;
+    animation-duration: 5s;
+}
+
+.bottom{
+    background-color: black;
+    text-align: center;
+}
+
+.logo{
+    padding: 10px;
+    width: 8rem;
+}
+
+.fa-brands{
+    padding: 30px 40px 20px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.fa-brands:hover{
+    color: #4d8eef;
+}
+
+.login{
+    margin-bottom: 70px;
+    font-size: 3rem;
+    padding: 10px 180px;
+    font-family: 'TeleLight';
+    color: white;
+    background-color: black;
+    border-radius: 15px;
+}
+
+.login:hover{
+    background-color:rgba(0, 0, 0, 0.479);
+}
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  
