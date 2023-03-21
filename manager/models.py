@@ -12,6 +12,12 @@ class User(AbstractUser):
         (2, 'admin'),
     )
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
+
+
+    def full_name(self):
+        return (self.first_name + " " + self.last_name) #Get string with name and surname
+
+
     pass
 
 class Entity(models.Model):
@@ -51,7 +57,6 @@ class Company(models.Model):
         self.wayra_investment = new_info['Wayra Total Investment (ML)']
         self.save()
 
-
     def isPortfolio(self):
         return self.wayra_investment != 0
 
@@ -65,7 +70,8 @@ class Investing(models.Model):
 
     amount = models.DecimalField(max_digits = 20, decimal_places=3)
 
-
+    def get_amount(self):
+        return self.amount
 
 class Round(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="rounds")
