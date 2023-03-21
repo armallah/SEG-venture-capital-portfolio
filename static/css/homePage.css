@@ -52,6 +52,9 @@ p:hover{
     text-align: center;
     animation-name: fadeIn;
     animation-duration: 5s;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
 }
 
 .bottom{
