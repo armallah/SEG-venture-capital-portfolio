@@ -15,24 +15,24 @@
 </button>
 -->
 
-<div class="">
+<div class="btn-group" role="group">
 
-  <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Add new records <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="#">Manual Entry</a></li>
-      <li><a href="{% url 'add_company' %}">File Upload</a></li>
-    </ul>
-  </div>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add new records <span class="caret"></span>
+  </button>
 
+  <ul class="dropdown-menu">
+    <li><a href="#">Manual Entry</a></li>
+    <li><a href="{% url 'add_company' %}">File Upload</a></li>
+  </ul>
+
+  <button type="submit" method = "post" class="btn btn-default"><a href="{% url 'sync airtable'%}" class="fa fa-refresh" aria-hidden="true"></a></button>
+
+  <!--
   <form action="{% url 'sync airtable'%}" method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-default">
-        Sync <span class="glyphicon"></span>
-    </button>
   </form>
+  -->
 
 </div>
 
