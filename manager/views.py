@@ -81,9 +81,9 @@ def entities(request):
 def sync(request):
     if request.method == 'POST':
         airtable.update_all()
-        return redirect('dashboard')
+        return redirect(dashboard)
 
-    return redirect('dashboard')
+    return redirect(dashboard)
 
 def founders(request):
     foundingCompanies = Entity.objects.all()
@@ -186,9 +186,9 @@ def addCompany(request):
             df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string'})
             #dat = df.shape
             dat = df.iloc[1,1]
-            #Company.objects.all().delete()
-            #Entity.objects.all().delete()
-            #Investing.objects.all().delete()
+            Company.objects.all().delete()
+            Entity.objects.all().delete()
+            Investing.objects.all().delete()
             #return HttpResponse(str(dat))
             #return HttpResponse(str(df.shape[0]))
             for x in range(df.shape[0]):
@@ -220,15 +220,20 @@ def addCompany(request):
                             investorEntity = Entity.objects.get(name = investorList[i])
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             Investor.save()
+                            company.investors.add(investorEntity)
                             #add this investor to created company
                         except Entity.DoesNotExist:
                             investorEntity = Entity.objects.create(name = investorList[i])
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             investorEntity.save()
                             Investor.save()
+                            company.investors.add(investorEntity)
+                            company.save()
                             #create + add this investor to created company(entity of investor, )
                         Investors.append(Investor)
+
                         company.investors.add(investorEntity)
+
 
                     founderList = df.iloc[x, 4].split(",")
                     #return HttpResponse(str(founderList))
@@ -243,6 +248,7 @@ def addCompany(request):
                         try:
                             founder = Entity.objects.get(name = founderName)
                             company.founders.add(founder)
+                            company.save()
                             #return HttpResponse("Banana")
                             Founders.append(founder)
                             #add this investor to created company
@@ -256,6 +262,7 @@ def addCompany(request):
                             company.founders.add(founder)
                             Founders.append(founder)
                             founder.save()
+                            company.save()
                             #create + add this investor to created company
 
                         #return HttpResponse(Entity.objects.count())
@@ -292,7 +299,7 @@ def addCompany(request):
             #Company.objects.all().delete()
             #return HttpResponse(str(Entity.objects.count()))
             #return HttpResponse(str(Entity.objects.get(name="Mom")))
-            #return HttpResponse("The number of entities is: " + str(Entity.objects.count()))
+            #return HttpResponse("The number of entities is: " + str(Entity.objects.get(name="Also")))
             return redirect("portfolio")
         else:
             return HttpResponse(form.errors.as_data())

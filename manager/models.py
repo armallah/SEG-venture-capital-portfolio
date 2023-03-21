@@ -24,6 +24,9 @@ class Entity(models.Model):
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
+    def __str__(self):
+        return self.name
+    
     def getName(self):
         return self.name
 
@@ -58,6 +61,18 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def getTotalInvestors(self):
+        return self.investors.count()
+    
+    def getTotalFounders(self):
+        return self.founders.count()
+
+    def getTotalRounds(self):
+        return self.rounds.count()
+
+    def getTotalRights(self):
+        return self.wayra_right.count()        
 
 
 class Investing(models.Model):
