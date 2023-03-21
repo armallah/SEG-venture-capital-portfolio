@@ -1,0 +1,17 @@
+<tr>
+  <td style="text-align: center;">{{ item.id }}</td>
+  <td><a href="{% url 'adminEditUser' item.id %}">{{ item.full_name }}</a></td> <!--Click to edit admin user-->
+  <td>{{ item.first_name }}</td>
+  <td>{{ item.last_name }}</td>
+  <td>{{ item.email }}</td>
+  {# <td></td> #}
+  <td style="text-align: center;">
+    <form action="{% url 'adminDeleteUser' item.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" value="{{ item.id }}" />
+      <button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">
+          <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </form>
+  </td>
+</tr>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Users</title>
+{% endblock %}
+
+{% block contents %}
+<h1 class="mt-4">All Users</h1>
+
+<h1></h1>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add New Account <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="{% url 'adminAddUser' %}">Viewing Account</a></li>
+  </ul>
+</div>
+
+<h1></h1>
+
+{% include 'partials/users_table.html' with data=data %}
+{% include 'partials/tables_javascript.html' %}
+{% endblock %}
