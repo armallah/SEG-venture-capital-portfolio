@@ -76,9 +76,9 @@ def entities(request):
 def sync(request):
     if request.method == 'POST':
         airtable.update_all()
-        return redirect(dashboard)
+        return redirect('dashboard')
 
-    return redirect(dashboard)
+    return redirect('dashboard')
 
 def founders(request):
     context = {

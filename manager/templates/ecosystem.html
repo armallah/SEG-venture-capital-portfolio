@@ -9,6 +9,11 @@
 <h1 class="mt-4">Wayra Ecosystem</h1>
 
 <h1></h1>
+<!--
+<button type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">
+  Sync
+</button>
+-->
 
 <!-- Single button -->
 <div class="btn-group">
@@ -20,6 +25,22 @@
     <li><a href="#">File Upload</a></li>
   </ul>
 </div>
+
+
+
+<!-- <form action="{% url 'sync airtable' %}" method="post">
+  {% csrf_token %}
+  <button type="button" href="{% url 'sync airtable' %}" class="btn btn-default" aria-haspopup="true" aria-expanded="false">
+    Sync
+  </button>
+</form> -->
+
+<form action="{% url 'sync airtable'%}" method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-default" onclick="return confirm('Are you sure you want to delete this user?');">
+      Sync <span class="glyphicon"></span>
+  </button>
+</form>
 
 <!-- Split button -->
 <!--
