@@ -22,8 +22,8 @@ from django.contrib.auth import logout
 
 def home(request):
 
-    return render(request, 'home.html')    
-    
+    return render(request, 'home.html')
+
 
 
 def log_out(request): #logs out the user and redirects to home page
@@ -71,8 +71,9 @@ def company_view(request, name):
 
 # @login_required
 def entities(request):
+    investingCompanies = Entity.objects.all()
     context = {
-
+    'data' : investingCompanies
     }
     return render(request, 'entities.html', context)
 
@@ -85,8 +86,9 @@ def sync(request):
     return redirect('dashboard')
 
 def founders(request):
+    foundingCompanies = Entity.objects.all()
     context = {
-
+    'data' : foundingCompanies
     }
     return render(request, 'founders.html', context)
 
@@ -193,8 +195,8 @@ def addCompany(request):
                 name = df.iloc[x, 0]
                 registeredNumber = df.iloc[x, 1]
                 countryCode = df.iloc[x, 2]
-                
-                
+
+
                 #return HttpResponse(str(Entity.objects.count()))
                 #return HttpResponse(str(Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0))
                 if Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0:
@@ -209,7 +211,7 @@ def addCompany(request):
                             Amounts.append(investorList[i])
                         else:
                             Investors.append(investorList[i])
-                    
+
                     for i in range(0, len(investorList), 2):
                         #investor list contains[name, amount, name, amount...]
                         #make sure to alternate elements for name and amount. And feed them in their respective areas.
@@ -227,7 +229,7 @@ def addCompany(request):
                             #create + add this investor to created company(entity of investor, )
                         Investors.append(Investor)
                         company.investors.add(investorEntity)
-                    
+
                     founderList = df.iloc[x, 4].split(",")
                     #return HttpResponse(str(founderList))
                     founder1 = Entity.objects.count()
@@ -246,7 +248,7 @@ def addCompany(request):
                             #add this investor to created company
                         except Entity.DoesNotExist:
                             #return HttpResponse("banana")
-                            founder = Entity.objects.create(name = founderName) 
+                            founder = Entity.objects.create(name = founderName)
 
                             founder.founding_company.add(company)
                             #founder.invested_company.add(company, 900) #<- work on this aspect.
@@ -270,7 +272,7 @@ def addCompany(request):
                             validRight = Right.objects.create(name=right)
                             validRight.holding_right.add(company)
                             validRight.save()
-                        
+
 
                     #company.wayra_right.add(defaultQuery)
                     company.save()
