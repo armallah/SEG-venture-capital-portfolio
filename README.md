@@ -23,7 +23,7 @@ Make necessary migrations:
 
 Apply migrations:
 ```
- $ python manage.py migrate
+ $ python manage.py migrate --run-syncdb
 ```
 
 

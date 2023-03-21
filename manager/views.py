@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import LoginForm, DocumentForm, AddNewUser
 from .models import Document, Company, Entity, Investing, Right, User
+from manager.utils import airtable
+
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
 import pandas as pd
@@ -71,6 +73,13 @@ def entities(request):
     return render(request, 'entities.html', context)
 
 # @login_required
+def sync(request):
+    if request.method == 'POST':
+        airtable.update_all()
+        return redirect(dashboard)
+
+    return redirect(dashboard)
+
 def founders(request):
     context = {
 
