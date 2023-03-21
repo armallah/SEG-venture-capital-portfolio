@@ -1,10 +1,15 @@
 <html>
     <head>
+        <style>
+            body {background-color: powderblue;}
+            h1   {color: black;}
+            p    {color: black;}
+        </style>
         <title>Sign Up</title>
     </head>
     <body>
         <h1>Sign Up</h1>
-        <p>You can create an account here, The username should be your email</p>
+        <p>You can create an account here</p>
         <form action = "{% url 'sign_up' %}" method = "post">
             {% csrf_token %}
             {{ form.as_p }}
