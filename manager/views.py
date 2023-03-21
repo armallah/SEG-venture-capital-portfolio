@@ -81,9 +81,9 @@ def entities(request):
 def sync(request):
     if request.method == 'POST':
         airtable.update_all()
-        return redirect(dashboard)
+        return redirect(request.META.get('HTTP_REFERER'))
 
-    return redirect(dashboard)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def founders(request):
     foundingCompanies = Entity.objects.all()
