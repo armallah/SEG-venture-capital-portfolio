@@ -53,3 +53,11 @@ def portfolio(request):
     context = {
     }
     return render(request, 'portfolio.html', context)
+
+def company_founders(request, company_name):
+    company = get_object_or_404(Company, name=company_name)
+    context = {'company': company}
+    
+    return render(request, 'founders.html', context)
+
+

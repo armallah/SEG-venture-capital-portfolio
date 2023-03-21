@@ -20,7 +20,7 @@
             <h1 class="page-header search-header">{{ company.name }}</h1>
             <nav class="nav-bar">
                 <div class="button-group">
-                    <button class="button summary-button" onclick="redirectTo('')">Summary</button>
+                    <button class="button active-button" onclick="redirectTo('')">Summary</button>
                     <button class="button" onclick="redirectTo('founders')">Founders</button>
                     <button class="button" onclick="redirectTo('investors')">Investors</button>
                 </div>
@@ -31,7 +31,7 @@
       <div class="card-container">
           <div class="card card-about">
               <h2 class="card-h2">About</h2>
-              <p>You can put infomration here sjfg nsagn afkgjndl kgj nldskjgn ldsfnjg ldsjng ldskjng ldsng dsjng lkdsjg nf</p>
+              <p>Information about the company goes here</p>
               <div class="about-card">
                 <p><strong>Country Code:</strong> {{ company.country_code }}</p>
                 <p><strong>Number:</strong> {{ company.number }}</p>
@@ -39,35 +39,29 @@
           </div>
           <div class="card card-highlights">
               <h2 class="card-h2">Highlights</h2>
-              <p>ajgfnlngfld ngjdn gdjng dsjkng djng ldjnfg ldsjngjkdsng lkdng lkdsjfng ldjkfng ldsjfng ldsfjkng ddjfng </p>
-              <div class="founder-highlights">
-                {% comment %} add more divs to this {% endcomment %}
-                <h2 class="card-h2">Founders</h2>
-                  <ul>
-                    {% for founder in company.founders.all %}
-                      <li>{{ founder.name }}</li>
-                    {% endfor %}
-                  </ul>
-
-                  <h2 class="card-h2">Investors</h2>
-                    <ul>
-                      {% for investor in company.investors.all %}
-                        <li>{{ investor.name }}</li>
-                      {% endfor %}
-                    </ul>
-
-                    <h2 class="card-h2">Wayra Rights</h2>
-                      <ul>
-                        {% for right in company.wayra_right.all %}
-                          <li>{{ right.name }}</li>
-                        {% endfor %}
-                      </ul>
+              <p>Highlights text</p>
+              <div class="founder-investor-buttons">
+                <button class="info-button" onclick="redirectTo('founders')" id="founderButton">
+                  <span class="button-text">Founders</span>
+                  <span class="button-number">{{ company.founders.count }}</span>
+                  <span class="arrow">&gt;</span>
+                </button>
+                <button class="info-button" onclick="redirectTo('investors')" id="investorButton">
+                  <span class="button-text">Investors</span>
+                  <span class="button-number">{{ company.investors.count }}</span>
+                  <span class="arrow">&gt;</span>
+                </button>
               </div>
-              
           </div>
           <div class="card card-news">
-              <h2 class="card-h2">News</h2>
-              <p>maybe this is useless flkg ldkgm ldfkgm dlfgndjgn djng fldsjng ldjnfg ldjsng lkjdsg nljdnsg </p>
+              <div>
+                <h2 class="card-h2">Wayra Rights</h2>
+                <ul>
+                  {% for right in company.wayra_right.all %}
+                    <li>{{ right.name }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
           </div>
       </div>
   </div>
