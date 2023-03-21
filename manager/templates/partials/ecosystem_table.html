@@ -2,7 +2,7 @@
 
 <table id = "display-tables" class="display compact" style="width:100%">
   <caption>
-    List of all portfolio companies. Hold shift and click on rows to sort by multiple rows. Click on company name to view further details.
+    List of all companies in Wayra ecosystem. Hold shift and click on rows to sort by multiple rows. Click on company name to view further details.
   </caption>
   <thead>
     <tr>
@@ -23,7 +23,7 @@
     <!-- {% include 'partials/tempPortfolioTable.html' %} -->
 
    {% for item in data %}
-     {% include 'partials/portfolio_table_row.html' with item=item %}
+     {% include 'partials/ecosystem_table_row.html' with item=item %}
    {% endfor %}
 
   </tbody>

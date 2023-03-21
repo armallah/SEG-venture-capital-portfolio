@@ -21,12 +21,21 @@ from manager import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home , name="home"),
-    path('dashboard/', views.dashboard, name = 'dashboard'),
-    path("login" , views.log_in , name="log_in"),
+    path('sync/', views.sync, name="sync airtable"),
+    path("login/" , views.log_in , name="log_in"),
+    path('log_out/', views.log_out, name = 'log_out'),
     path('entities/<str:name>/', views.entity_view, name='entity_view'),
     path('companies/<str:name>/', views.company_view, name='company_view'),
     path('dashboard/', views.dashboard, name = 'dashboard'),
     path('portfolio/', views.portfolio, name = 'portfolio'),
+    path('entities/', views.entities, name = 'entities'),
+    path('founders/', views.founders, name = 'founders'),
+    path('ecosystem/', views.ecosystem, name = 'ecosystem'),
+    path('users/', views.users, name = 'users'),
+    path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
+    path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
+    path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
+    path('add/company', views.addCompany, name = 'add_company')
 ]
 
 
