@@ -26,9 +26,15 @@ class Entity(models.Model):
     founding_company: models.QuerySet["Company"]
     def __str__(self):
         return self.name
-    
+
     def getName(self):
         return self.name
+
+    def getTotalFoundedCompanies(self):
+        return self.founding_company.count()
+
+    def getTotalInvestedCompanies(self):
+        return self.invested_company.count()
 
 class Company(models.Model):
     name = models.CharField(max_length=50)
@@ -64,7 +70,7 @@ class Company(models.Model):
 
     def getTotalInvestors(self):
         return self.investors.count()
-    
+
     def getTotalFounders(self):
         return self.founders.count()
 
@@ -72,7 +78,7 @@ class Company(models.Model):
         return self.rounds.count()
 
     def getTotalRights(self):
-        return self.wayra_right.count()        
+        return self.wayra_right.count()
 
 
 class Investing(models.Model):
