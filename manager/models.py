@@ -1,6 +1,7 @@
+import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from pandas._libs.tslibs.parsing import parse_datetime_string
 
 # Create your models here.
@@ -11,21 +12,17 @@ class User(AbstractUser):
         (2, 'admin'),
     )
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
-
-    def full_name(self):
-        return (self.first_name + " " + self.last_name) #Get string with name and surname
-
-    user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
-    objects: UserManager = UserManager()
     pass
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
-
+    
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
     def getName(self):
+        return self.name
+    def __str__(self):
         return self.name
 
 class Company(models.Model):
@@ -83,7 +80,7 @@ class Round(models.Model):
         self.equity = new_info.get(f"(Round {self.round_number}) - Investors Equity") or 0
         self.wayra_equity = new_info.get(f"(Round {self.round_number}) - Wayra Follow-on") or 0
         date_str:str = new_info.get(f"(Round {self.round_number}) - Date Link") or ""
-        self.round_date = parse_datetime_string(date_str, dayfirst=True, yearfirst=False)
+        self.round_date = parse_datetime_string(date_str, dayfirst=True, yearfirst=False) 
         self.pre_money_valuation = new_info.get(f"(Round {self.round_number}) - Pre-money valuation") or 0
         self.save()
 
@@ -101,3 +98,4 @@ class Document(models.Model):
 #     def file_url(self):
 #         if self.file and hasattr(self.file, 'url'):
 #             return self.file.path
+

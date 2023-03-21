@@ -1,12 +1,9 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
-
-from manager.utils import airtable
-from .forms import LoginForm, DocumentForm
+from .forms import LoginForm, DocumentForm, CompanyForm
 from .models import Document, Company, Entity, Investing, Right
 from django.contrib.auth import authenticate , login
 from django.contrib import messages
-from django.db.models import Q
 import pandas as pd
 import django.core.files
 
@@ -15,10 +12,6 @@ import django.core.files
 
 def home(request):
     return HttpResponse("Hello, home page or not here.")
-
-def log_out(request): #logs out the user and redirects to home page
-    logout(request)
-    return redirect('log_in')
 
 def log_in(request):
     if request.method == "POST":
@@ -63,13 +56,6 @@ def entities(request):
     }
     return render(request, 'entities.html', context)
 
-def sync(request):
-    if request.method == 'POST':
-        airtable.update_all()
-        return redirect(dashboard)
-
-    return redirect(dashboard)
-
 def founders(request):
     context = {
 
@@ -81,13 +67,11 @@ def error_404(request, exception):
 
 def portfolio(request):
     context = {
-        "data" : Company.objects.filter(~Q(wayra_investment = 0))
     }
     return render(request, 'portfolio.html', context)
 
 def ecosystem(request):
     context = {
-        "data" : Company.objects.filter(wayra_investment = 0)
     }
     return render(request, 'ecosystem.html', context)
 
@@ -104,34 +88,50 @@ def addCompany(request):
             #spreadsheet = Document.upload.path
             df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string'})
             #dat = df.shape
-            dat = df.iloc[0,1]
+            dat = df.iloc[1,1]
+            #Company.objects.all().delete()
+            #Entity.objects.all().delete()
             #return HttpResponse(str(dat))
+            #return HttpResponse(str(df.shape[0]))
             for x in range(df.shape[0]):
                 name = df.iloc[x, 0]
                 registeredNumber = df.iloc[x, 1]
                 countryCode = df.iloc[x, 2]
-                #return HttpResponse(str(Company.objects.count()))
-                Company.objects.all().delete()
-                Entity.objects.all().delete()
+                
+                
+                #return HttpResponse(str(Entity.objects.count()))
                 #return HttpResponse(str(Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0))
                 if Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0:
                     company = Company.objects.create(name = name, number = registeredNumber, country_code = countryCode)
                     corps = Company.objects.filter(name = name).first()
                     investorList = df.iloc[x, 3].split(",")
+                    #return HttpResponse(str(investorList))
                     Investors = []
-                    """
-                    for investorName in investorList:
+                    Amounts = []
+                    for i in range(len(investorList)):
+                        if i % 2 == 0:
+                            Amounts.append(investorList[i])
+                        else:
+                            Investors.append(investorList[i])
+                    
+                    for i in range(0, len(investorList), 2):
                         #investor list contains[name, amount, name, amount...]
                         #make sure to alternate elements for name and amount. And feed them in their respective areas.
                         try:
-                            investor = Investing.objects.get(investor = investorName)
+                            #return HttpResponse(investorList[i])
+                            investorEntity = Entity.objects.get(name = investorList[i])
+                            Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
+                            Investor.save()
                             #add this investor to created company
                         except Entity.DoesNotExist:
-                            investor = Investing.objects.create(investor = investorName, company = name, amount = )
+                            investorEntity = Entity.objects.create(name = investorList[i])
+                            Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
+                            investorEntity.save()
+                            Investor.save()
                             #create + add this investor to created company(entity of investor, )
-                        Investors.append(investor)
-                        company.investors.add(investor)
-                    """
+                        Investors.append(Investor)
+                        company.investors.add(investorEntity)
+                    
                     founderList = df.iloc[x, 4].split(",")
                     #return HttpResponse(str(founderList))
                     founder1 = Entity.objects.count()
@@ -145,12 +145,16 @@ def addCompany(request):
                         try:
                             founder = Entity.objects.get(name = founderName)
                             company.founders.add(founder)
-                            return HttpResponse(founderName)
+                            #return HttpResponse("Banana")
                             Founders.append(founder)
                             #add this investor to created company
                         except Entity.DoesNotExist:
                             #return HttpResponse("banana")
-                            founder = Entity.objects.create(name = founderName)
+                            founder = Entity.objects.create(name = founderName) 
+
+                            founder.founding_company.add(company)
+                            #founder.invested_company.add(company, 900) #<- work on this aspect.
+
                             company.founders.add(founder)
                             Founders.append(founder)
                             founder.save()
@@ -160,12 +164,19 @@ def addCompany(request):
                         #return HttpResponse(Company.objects.filter(name=name).first().name)
 
                     rightsList = df.iloc[x, 5].split(",")
-                    defaultQuery = Right.objects.filter(name="Bananarama")
+
                     for right in rightsList:
-                        validRights = Right.objects.filter(name=right)
-                        defaultQuery = defaultQuery | validRights
-                    #rights = Right.objects.filter(5 == 2)
-                    #company.wayra_right.add(defaultQuery)
+                        try:
+                            validRight = Right.objects.get(name=right)
+                            validRight.holding_right.add(company)
+                            validRight.save()
+                        except Right.DoesNotExist:
+                            validRight = Right.objects.create(name=right)
+                            validRight.holding_right.add(company)
+                            validRight.save()
+                        
+
+                    company.wayra_right.add(defaultQuery)
                     company.save()
 
 
@@ -183,9 +194,27 @@ def addCompany(request):
             #Company.objects.all().delete()
             #return HttpResponse(str(Entity.objects.count()))
             #return HttpResponse(str(Entity.objects.get(name="Mom")))
+            return HttpResponse("The number of investors is: " + str(Investing.objects.count()))
             return redirect("portfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
         form = DocumentForm() #A empty, unbound form
         return render(request, 'addCompany.html', {'form': form})
+
+
+#add view(s) to add companies to portfolio. Switch from model form to regular form. Use text/decimal fields only, then process later.
+def addCompanyOne(request):
+    if request.method == 'POST':
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("bananarama")
+            return HttpResponse(str(Company.objects.count()))
+            #return redirect("portfolio")
+        else:
+            return HttpResponse("mamma mia!")
+            #return HttpResponse(form.errors.as_data())
+    else:
+        form = CompanyForm() #A empty, unbound form
+        return render(request, 'addCompanySingle.html', {'form': form})
