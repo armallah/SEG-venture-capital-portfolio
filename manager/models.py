@@ -1,7 +1,6 @@
-import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from pandas._libs.tslibs.parsing import parse_datetime_string
 
 # Create your models here.
@@ -14,8 +13,10 @@ class User(AbstractUser):
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
 
     def full_name(self):
-        return (self.first_name + " " + self.last_name)
+        return (self.first_name + " " + self.last_name) #Get string with name and surname
 
+    user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
+    objects: UserManager = UserManager()
     pass
 
 class Entity(models.Model):
@@ -53,6 +54,7 @@ class Company(models.Model):
         self.wayra_investment = new_info['Wayra Total Investment (ML)']
         self.save()
 
+
     def isPortfolio(self):
         return self.wayra_investment != 0
 
@@ -66,8 +68,7 @@ class Investing(models.Model):
 
     amount = models.DecimalField(max_digits = 20, decimal_places=3)
 
-    def get_amount(self):
-        return self.amount
+
 
 class Round(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="rounds")
