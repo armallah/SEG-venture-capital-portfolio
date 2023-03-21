@@ -21,11 +21,15 @@ from django.contrib.auth import logout
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Hello, home page or not here.")
+
+    return render(request, 'home.html')    
+    
+
 
 def log_out(request): #logs out the user and redirects to home page
     logout(request)
     return redirect('log_in')
+
 
 def log_in(request):
     if request.method == "POST":
