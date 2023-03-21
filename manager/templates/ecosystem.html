@@ -16,14 +16,14 @@
 -->
 
 <div class="">
-  
+
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Add new records <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li><a href="#">Manual Entry</a></li>
-      portfolioCompanies = Company.objects.filter(wayra_investment__gt=0)
+      <li><a href="{% url 'add_company' %}">File Upload</a></li>
     </ul>
   </div>
 
