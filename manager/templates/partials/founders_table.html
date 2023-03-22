@@ -12,9 +12,8 @@
     {% for founder in data %}
       <tr>
         <td>{{ founder.id }}</td>
-        <td>{{ founder.name }}</td>
+        <td><a href="{% url 'entity_view' founder.name %}">{{ founder.name }}</td>
         <td>{{ founder.founding_company.count }}</td>
-
       </tr>
     {% endfor %}
   </tbody>

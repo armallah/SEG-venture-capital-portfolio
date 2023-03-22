@@ -1,5 +1,9 @@
 {% load static %}
-
+<style>
+  .ui-widget-header {
+    background: #ededed
+  }
+</style>
 <table id="display-tables" class="display compact" style="width:100%">
   <thead>
     <tr>
@@ -13,7 +17,7 @@
     {% for investor in data %}
       <tr>
         <td>{{ investor.id }}</td>
-        <td>{{ investor.name }}</td>
+        <td><a href="{% url 'entity_view' investor.name %}">{{ investor.name }}</td>
         <td>{{ investor.founding_company.count }}</td>
         <td> 
             {% for investment in investor.investing_set.all %}
