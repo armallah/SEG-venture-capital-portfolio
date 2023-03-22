@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import LoginForm, DocumentForm, AddNewUser, CompanyForm
-from .models import Document, Company, Entity, Investing, Right, User
+from .models import Document, Company, Entity, Investing, Right, User, Round
 from manager.utils import airtable
 
 from django.contrib.auth import authenticate , login
@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.contrib.auth import logout
+import json
 
 
 
@@ -48,6 +49,60 @@ def log_in(request):
 
     form = LoginForm()
     return render(request, 'login.html' , {'form':form})
+
+def get_country_data():
+    labels = []
+    data = []
+    allCountries = []
+    queryset = Company.objects.all()
+    for entry in queryset:
+        allCountries.append(entry.country_code)
+    labels = list(dict.fromkeys(allCountries))
+    for country in labels:
+        data.append(allCountries.count(country))
+    return [labels, data]
+
+def get_top_invest_data():
+    labels = []
+    data = []
+    allCountries = []
+    queryset = Company.objects.all().filter(wayra_investment__gt=0).order_by("-wayra_investment")[:5]
+    for company in queryset:
+        labels.append(company.name)
+        data.append(round(int(company.wayra_investment), 0))
+    return [labels, data]
+
+def get_top_invest_rounds_data():
+    labels = []
+    data = []
+    rounds = []
+    companyNames = []
+    topCompanies = Company.objects.all().filter(wayra_investment__gt=0).order_by("-wayra_investment")[:5]
+    for company in topCompanies:
+        compRounds = Round.objects.all().filter(company=company)
+        entry = []
+        for r in compRounds:
+            entry.append(int(r.pre_money_valuation))
+        rounds.append(entry)
+
+    max = 0
+    for i in range(len(rounds)):
+        if len(rounds[i]) > max:
+            max = len(rounds[i])
+
+    for i in range(1, max + 1):
+        labels.append("Round " + str(i))
+
+    for i in range(0,5):
+        try:
+            companyNames.append(str(topCompanies[i].name))
+            data.append(rounds[i])
+        except:
+            companyNames.append("")
+            data.append([])
+
+    return [labels, data, companyNames]
+
 
 # @login_required
 def dashboard(request):
@@ -86,12 +141,31 @@ def dashboard(request):
         moneyInvested = round(moneyInvested, 0)
         moneyInvested = f"{moneyInvested:,}"
 
+    doughnutChart = get_country_data()
+    barChart = get_top_invest_data()
+    lineChart = get_top_invest_rounds_data()
+
     context = {
         'totalInvestment' : moneyInvested,
         'totalCompanies' : len(portfolioCompanies),
         'totalInvestors' : len(allInvestors),
         'totalFounders' : len(allFounders),
         'investUnit' : investUnit,
+        'doughnutLabels' : (doughnutChart[0]),
+        'doughnutData' : (doughnutChart[1]),
+        'barLabels' : (barChart[0]),
+        'barData' : (barChart[1]),
+        'lineLabels' : lineChart[0],
+        'lineData1' : lineChart[1][0],
+        'lineName1' : [lineChart[2][0]],
+        'lineData2' : lineChart[1][1],
+        'lineName2' : [lineChart[2][1]],
+        'lineData3' : lineChart[1][2],
+        'lineName3' : [lineChart[2][2]],
+        'lineData4' : lineChart[1][3],
+        'lineName4' : [lineChart[2][3]],
+        'lineData5' : lineChart[1][4],
+        'lineName5' : [lineChart[2][4]],
     }
     return render(request, 'dashboard.html', context)
 
