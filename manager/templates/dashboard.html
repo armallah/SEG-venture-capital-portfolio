@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
-{# <title> {{ request.user.full_name }}'s Dashboard</title> #}
-<title>Firstname's Dashboard</title>
+<title> {{ request.user.full_name }}'s Dashboard</title>
 {% endblock %}
 
 {% block contents %}
@@ -14,7 +14,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-building"></i>
-        <span class="count-numbers">60</span>
+        <span class="count-numbers">{{ totalInvestors }}</span>
         <span class="count-name">Investors</span>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-money"></i>
-        <span class="count-numbers">£599m</span>
+        <span class="count-numbers">£{{ totalInvestment }}{{ investUnit }}</span>
         <span class="count-name">Investment</span>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-briefcase"></i>
-        <span class="count-numbers">6875</span>
+        <span class="count-numbers">{{ totalCompanies }}</span>
         <span class="count-name">Portfolio Companies</span>
       </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-users"></i>
-        <span class="count-numbers">73</span>
+        <span class="count-numbers">{{ totalFounders }}</span>
         <span class="count-name">Founders</span>
       </div>
   </div>
@@ -47,13 +47,13 @@
 <div class="row gx-5">
   <div class="col-lg-6">
     <div class="panel panel-default">
-      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span> Bar Chart Example </span></div>
+      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span> Top Company Investments </span></div>
       <div class="panel-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
     </div>
   </div>
   <div class="col-lg-6">
     <div class="panel panel-default">
-      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span> Doughnut Chart Example </span></div>
+      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span>Ecosystem Demographic</span></div>
       <div class="panel-body"><canvas id="MyDoughnutChart" width="100%" height="40"></canvas></div>
     </div>
   </div>
@@ -62,11 +62,112 @@
 <div class="row gx-5">
   <div class="col-lg-12">
     <div class="panel panel-default">
-      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span> Line Graph Example </span></div>
+      <div class="panel-heading"><i class="fas fa-chart-bar me-1"></i><span>Top Firms' Pre-Money Valuations</span></div>
       <div class="panel-body"><canvas id="myLineGraph" width="100%" height="40"></canvas></div>
     </div>
   </div>
 </div>
+
+<script>
+  new Chart(document.getElementById("MyDoughnutChart"), {
+    type: 'doughnut',
+    data: {
+      labels: {{ doughnutLabels | safe }},
+      datasets: [
+        {
+          label: "Countries",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: {{ doughnutData | safe }},
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Company Locations'
+      }
+    }
+  });
+</script>
+
+<script>
+new Chart(document.getElementById("myBarChart"), {
+  type: 'bar',
+  data: {
+    labels: {{ barLabels | safe}},
+    datasets: [{
+      label: "Wayra Investment",
+      backgroundColor: "rgba(2,117,216,1)",
+      borderColor: "rgba(2,117,216,1)",
+      data: {{ barData | safe }},
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: true
+        },
+      }],
+      yAxes: [{
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+</script>
+
+<script>
+var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+new Chart("myLineGraph", {
+  type: "line",
+  data: {
+    labels: {{ lineLabels | safe }},
+    datasets: [{
+      data: {{ lineData1 | safe }},
+      borderColor: "red",
+      fill: false,
+      label: {{ lineName1 | safe }}
+    },{
+      data: {{ lineData2 | safe }},
+      borderColor: "green",
+      fill: false,
+      label: {{ lineName2 | safe }}
+    },{
+      data: {{ lineData3 | safe }},
+      borderColor: "blue",
+      fill: false,
+      label: {{ lineName3 | safe }}
+    },{
+      data: {{ lineData4 | safe }},
+      borderColor: "purple",
+      fill: false,
+      label: {{ lineName4 | safe }}
+    },{
+      data: {{ lineData5 | safe }},
+      borderColor: "black",
+      fill: false,
+      label: {{ lineName5 | safe }}
+    },]
+  },
+  options: {
+    legend: {display: true}
+  }
+});
+
+</script>
+
+
+{% endblock %}
+
+{% block scripts %}
+
 
 
 {% endblock %}

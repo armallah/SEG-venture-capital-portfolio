@@ -129,10 +129,14 @@
 
      <!-- Custom JS -->
      <script src="{% static 'main.js' %}"></script>
-     <script src="{% static 'barChart.js' %}"></script>
-     <script src="{% static 'doughnutChart.js' %}"></script>
-     <script src="{% static 'lineGraph.js' %}"></script>
+     {# <script src="{% static 'barChart.js' %}"></script> #}
+     {# <script src="{% static 'doughnutChart.js' %}"></script> #}
+     {# <script src="{% static 'lineGraph.js' %}"></script> #}
      <script src="{% static 'tables.js' %}"></script>
+
+     {% block scripts%}
+     {% endblock %}
+
 
   </body>
 
