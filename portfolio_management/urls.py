@@ -27,7 +27,9 @@ urlpatterns = [
     path('companies/<str:name>/', views.company_view, name='company_view'),
     path('dashboard/', views.dashboard, name = 'dashboard'),
     path('portfolio/', views.portfolio, name = 'portfolio'),
-    path('companies/<str:company_name>/founders/', views.company_founders, name='company_founders')
+    path('companies/<str:company_name>/founders/', views.company_founders, name='company_founders'),
+    path('companies/<str:company_name>/investors/', views.company_investors, name='company_investors')
+    
 ]
 
 

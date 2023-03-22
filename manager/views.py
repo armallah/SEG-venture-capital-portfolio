@@ -58,6 +58,14 @@ def company_founders(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
     
-    return render(request, 'founders.html', context)
+    return render(request, 'founders_details.html', context)
+
+
+def company_investors(request, company_name):
+    company = get_object_or_404(Company, name=company_name)
+    context = {'company': company}
+    
+    return render(request, 'investors_details.html', context)
+
 
 

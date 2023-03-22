@@ -29,10 +29,13 @@
     </div>    
     <div class="row">
       <div class="card-container">
-        hello
+        <div class="detailed-table">
+          {% include 'partials/founders_table.html' with data=company.founders.all %}
+        <div>
       </div>
   </div>
 </div>
+{% include 'partials/tables_javascript.html' %}
 {% endblock %}
 
 
