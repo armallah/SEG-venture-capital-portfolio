@@ -28,7 +28,7 @@ def home(request):
 
 def log_out(request): #logs out the user and redirects to home page
     logout(request)
-    return redirect('log_in')
+    return redirect('home')
 
 
 def log_in(request):
