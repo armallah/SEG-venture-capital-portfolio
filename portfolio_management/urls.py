@@ -36,7 +36,8 @@ urlpatterns = [
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
     path('add/company', views.addCompany, name = 'add_company'),
-    path('add/companyOne', views.addCompanyOne, name = 'add_company_one')
+    path('add/companyOne', views.addCompanyOne, name = 'add_company_one'),
+    path('adminProhibitted/', views.adminProhibitted, name='adminProhibitted'),
 ]
 
 
