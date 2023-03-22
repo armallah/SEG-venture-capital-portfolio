@@ -20,6 +20,12 @@ from django.contrib.auth import logout
 
 # Create your views here.
 
+def admin_test(user): # checks if user is an admin
+    return (user.user_type == 2)
+
+def adminProhibitted(request):
+    return render(request, 'adminProhibitted.html')
+
 def home(request):
 
     return render(request, 'home.html')
