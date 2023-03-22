@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
-{# <title> {{ request.user.full_name }}'s Dashboard</title> #}
-<title>Firstname's Dashboard</title>
+<title> {{ request.user.full_name }}'s Dashboard</title>
 {% endblock %}
 
 {% block contents %}
@@ -14,7 +14,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-building"></i>
-        <span class="count-numbers">60</span>
+        <span class="count-numbers">{{ totalInvestors }}</span>
         <span class="count-name">Investors</span>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-money"></i>
-        <span class="count-numbers">£599m</span>
+        <span class="count-numbers">£{{ totalInvestment }}{{ investUnit }}</span>
         <span class="count-name">Investment</span>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-briefcase"></i>
-        <span class="count-numbers">6875</span>
+        <span class="count-numbers">{{ totalCompanies }}</span>
         <span class="count-name">Portfolio Companies</span>
       </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
       <div class="card-counter">
         <i class="fa fa-users"></i>
-        <span class="count-numbers">73</span>
+        <span class="count-numbers">{{ totalFounders }}</span>
         <span class="count-name">Founders</span>
       </div>
   </div>
