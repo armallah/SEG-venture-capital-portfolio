@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, DocumentForm, AddNewUser
+from .forms import LoginForm, DocumentForm, AddNewUser, CompanyForm
 from .models import Document, Company, Entity, Investing, Right, User
 from manager.utils import airtable
 
@@ -183,70 +183,67 @@ def addCompany(request):
 
             #print("banana")
             #spreadsheet = Document.upload.path
-            df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string'})
+            df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string', 'Wayra Investment': 'float', 'Description': 'string'})
             #dat = df.shape
             dat = df.iloc[1,1]
-            # Company.objects.all().delete()
-            # Entity.objects.all().delete()
-            # Investing.objects.all().delete()
+            Company.objects.all().delete()
+            Entity.objects.all().delete()
+            Investing.objects.all().delete()
+            Right.objects.all().delete()
             #return HttpResponse(str(dat))
             #return HttpResponse(str(df.shape[0]))
             for x in range(df.shape[0]):
-                name = df.iloc[x, 0]
-                registeredNumber = df.iloc[x, 1]
-                countryCode = df.iloc[x, 2]
+                name = df.iloc[x, 0].strip()
+                registeredNumber = df.iloc[x, 1].strip()
+                countryCode = df.iloc[x, 2].strip()
+                wayraInvestment = 0
+                if not pd.isna(df.iloc[x, 6]):
+                        wayraInvestment = df.iloc[x, 6]
+                description = "No description"
+                if not pd.isna(df.iloc[x, 7]):
+                        description = df.iloc[x, 7].strip()
 
 
                 #return HttpResponse(str(Entity.objects.count()))
                 #return HttpResponse(str(Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0))
                 if Company.objects.filter(name = name).filter(number = registeredNumber).count() == 0:
-                    company = Company.objects.create(name = name, number = registeredNumber, country_code = countryCode)
+                    company = Company.objects.create(name = name, number = registeredNumber, country_code = countryCode, wayra_investment = wayraInvestment, description = description)
                     corps = Company.objects.filter(name = name).first()
                     investorList = df.iloc[x, 3].split(",")
                     #return HttpResponse(str(investorList))
-                    Investors = []
-                    Amounts = []
-                    for i in range(len(investorList)):
-                        if i % 2 == 0:
-                            Amounts.append(investorList[i])
-                        else:
-                            Investors.append(investorList[i])
 
                     for i in range(0, len(investorList), 2):
                         #investor list contains[name, amount, name, amount...]
                         #make sure to alternate elements for name and amount. And feed them in their respective areas.
+                        investorName = investorList[i].strip()
                         try:
                             #return HttpResponse(investorList[i])
-                            investorEntity = Entity.objects.get(name = investorList[i])
+                            investorEntity = Entity.objects.get(name = investorName)
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             Investor.save()
                             company.investors.add(investorEntity)
                             #add this investor to created company
                         except Entity.DoesNotExist:
-                            investorEntity = Entity.objects.create(name = investorList[i])
+                            investorEntity = Entity.objects.create(name = investorName)
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             investorEntity.save()
                             Investor.save()
                             company.investors.add(investorEntity)
                             company.save()
                             #create + add this investor to created company(entity of investor, )
-                        Investors.append(Investor)
+
 
                         company.investors.add(investorEntity)
 
 
                     founderList = df.iloc[x, 4].split(",")
-                    #return HttpResponse(str(founderList))
-                    founder1 = Entity.objects.count()
-                    #Company.objects.all().delete()
-                    #Entity.objects.all().delete()
-                    #return HttpResponse(str(Entity.objects.count()))
-                    #return HttpResponse(str(Company.objects.count()))
+
+
                     Founders = []
                     for founderName in founderList:
                         #instead of try/except, make the Entity.objects.get(name = founderName) first, and if the size is zero, make a new Entity.(Definitely this!)
                         try:
-                            founder = Entity.objects.get(name = founderName)
+                            founder = Entity.objects.get(name = founderName.strip())
                             company.founders.add(founder)
                             company.save()
                             #return HttpResponse("Banana")
@@ -254,7 +251,7 @@ def addCompany(request):
                             #add this investor to created company
                         except Entity.DoesNotExist:
                             #return HttpResponse("banana")
-                            founder = Entity.objects.create(name = founderName)
+                            founder = Entity.objects.create(name = founderName.strip())
 
                             founder.founding_company.add(company)
                             #founder.invested_company.add(company, 900) #<- work on this aspect.
@@ -268,15 +265,19 @@ def addCompany(request):
                         #return HttpResponse(Entity.objects.count())
                         #return HttpResponse(Company.objects.filter(name=name).first().name)
 
-                    rightsList = df.iloc[x, 5].split(",")
+                    #return HttpResponse(str(df.iloc[x, 5]))
+                    rightsList = ""
+                    if not pd.isna(df.iloc[x, 5]):
+                        rightsList = df.iloc[x, 5].split(",")
 
                     for right in rightsList:
+                        cleanRight = right.strip()
                         try:
-                            validRight = Right.objects.get(name=right)
+                            validRight = Right.objects.get(name=cleanRight)
                             validRight.holding_right.add(company)
                             validRight.save()
                         except Right.DoesNotExist:
-                            validRight = Right.objects.create(name=right)
+                            validRight = Right.objects.create(name=cleanRight)
                             validRight.holding_right.add(company)
                             validRight.save()
 
@@ -288,21 +289,30 @@ def addCompany(request):
                 #company = Company.objects.create(name = name, number = registeredNumber, country_code = countryCode)
 
 
-            #Columns 1-3 for each row should be fairly straightforward. (df = pd.readExcel(excelFile), then use df[0] to iterate through every row.)
-            #for Column 4, create an entity object with this company name as "company", their name as investor, and the amount as the amount.
-            #for Column 5, create an entity with this company as "founding company" and their name as "invested company"
-            #for Column 6, make a list out of the mentioned rights and say Right.objects.filter(name in WhateverICallMyList) to return a querySet.
-            #return excel.make_response(filehandle.get_sheet(), "csv")
-            #compQuery = Company.objects.all().get(id=45)
-            #return HttpResponse(str(compQuery) + str(Company.objects.all().count()))
-            #print("spreadsheet")
-            #Company.objects.all().delete()
-            #return HttpResponse(str(Entity.objects.count()))
-            #return HttpResponse(str(Entity.objects.get(name="Mom")))
-            #return HttpResponse("The number of entities is: " + str(Entity.objects.get(name="Also")))
+
             return redirect("portfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
         form = DocumentForm() #A empty, unbound form
         return render(request, 'addCompany.html', {'form': form})
+
+# @login_required
+#add view(s) to add companies to portfolio.
+def addCompanyOne(request):
+    if request.method == 'POST':
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            Name = form.data['name']
+            Number = form.data['number']
+            Country = form.data['country_code']
+            WayraInvestment = form.data['wayra_investment']
+            Description = form.data['description']
+            newCompany = Company.objects.create(name=Name, number=Number, country_code=Country, wayra_investment=WayraInvestment, description=Description)
+            newCompany.save()
+            return redirect("portfolio")
+        else:
+            return HttpResponse(form.errors.as_data())
+    else:
+        form = CompanyForm() #A empty, unbound form
+        return render(request, 'addCompanyOne.html', {'form': form})

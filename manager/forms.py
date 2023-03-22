@@ -30,6 +30,17 @@ class DocumentForm(ModelForm):
         model = Document
         fields = ['upload']
 
+class CompanyForm(forms.Form):
+    name = forms.CharField(max_length=50)
+    number = forms.CharField(max_length=50)
+    country_code = forms.CharField(max_length=15)
+    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3)
+    description = forms.CharField(max_length=200)
+    #founderNameList = forms.CharField()
+    #investorNameList = forms.CharField()
+    #investorAmountList = forms.CharField()
+    #rightList = forms.CharField()
+
 class AddNewUser(forms.ModelForm):
     class Meta:
         model = User
