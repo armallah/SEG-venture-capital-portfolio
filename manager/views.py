@@ -27,15 +27,11 @@ def adminProhibitted(request):
     return render(request, 'adminProhibitted.html')
 
 def home(request):
-
     return render(request, 'home.html')
-
-
 
 def log_out(request): #logs out the user and redirects to home page
     logout(request)
     return redirect('home')
-
 
 def log_in(request):
     if request.method == "POST":
@@ -55,7 +51,47 @@ def log_in(request):
 
 # @login_required
 def dashboard(request):
+    companies = Company.objects.all()
+    entities = Entity.objects.all()
+    moneyInvested = 0
+    allFounders = []
+    allInvestors = []
+    portfolioCompanies = []
+
+    for company in companies:
+        moneyInvested += company.wayra_investment
+        if company.wayra_investment > 0:
+            portfolioCompanies.append(company)
+
+    for entity in entities:
+        if entity.getTotalFoundedCompanies() > 0:
+            allFounders.append(entity)
+        if entity.getTotalInvestedCompanies() > 0:
+            allInvestors.append(entity)
+
+    if moneyInvested >= 1000000000:
+        investUnit = "b"
+        moneyInvested = float(moneyInvested) / 1000000000
+        moneyInvested = round(moneyInvested, 2)
+    elif moneyInvested >= 1000000:
+        investUnit = "m"
+        moneyInvested = float(moneyInvested) / 1000000
+        moneyInvested = round(moneyInvested, 2)
+    # elif moneyInvested >= 1000:
+    #     investUnit = "k"
+    #     moneyInvested = float(moneyInvested) / 1000
+    #     moneyInvested = round(moneyInvested, 0)
+    else:
+        investUnit = ""
+        moneyInvested = round(moneyInvested, 0)
+        moneyInvested = f"{moneyInvested:,}"
+
     context = {
+        'totalInvestment' : moneyInvested,
+        'totalCompanies' : len(portfolioCompanies),
+        'totalInvestors' : len(allInvestors),
+        'totalFounders' : len(allFounders),
+        'investUnit' : investUnit,
     }
     return render(request, 'dashboard.html', context)
 
@@ -77,9 +113,15 @@ def company_view(request, name):
 
 # @login_required
 def entities(request):
-    investingCompanies = Entity.objects.all()
+    data = Entity.objects.all()
+    investingCompanies = []
+
+    for entry in data:
+        if (entry.getTotalInvestedCompanies() > 0):
+            investingCompanies.append(entry)
+
     context = {
-    'data' : investingCompanies
+        'data' : investingCompanies
     }
     return render(request, 'entities.html', context)
 
@@ -92,9 +134,15 @@ def sync(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 def founders(request):
-    foundingCompanies = Entity.objects.all()
+    data = Entity.objects.all()
+    foundingCompanies = []
+
+    for entry in data:
+        if (entry.getTotalFoundedCompanies() > 0):
+            foundingCompanies.append(entry)
+
     context = {
-    'data' : foundingCompanies
+        'data' : foundingCompanies
     }
     return render(request, 'founders.html', context)
 
