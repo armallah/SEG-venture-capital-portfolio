@@ -14,7 +14,7 @@ class CompanyFormTest(TestCase):
             'country_code': 'Uk123',
             'wayra_investment': 10000.00,
             'description': 'Hello my name is Jane Doe',
-            'founderName':'Janeathan Doe'
+            'founder_Name':'Janeathan Doe'
         }
 
 
