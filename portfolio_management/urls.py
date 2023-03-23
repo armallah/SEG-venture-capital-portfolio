@@ -34,13 +34,10 @@ urlpatterns = [
     path('users/', views.users, name = 'users'),
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
+    path('adminDeleteCompany/<int:compID>', views.adminDeleteCompany, name='adminDeleteCompany'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
-    path('add/companySpreadsheet', views.addCompany, name = 'add_company'),
-    path('add/company', views.addCompanyOne, name = 'add_company_one'),
-    path('add/founder',views.addFounderOne, name = 'add_founder_one'),
-    path('add/investor',views.addInvestorOne, name = 'add_investor_one'),
-    path('add/right',views.addRightOne, name = 'add_right_one'),
-    path('add/round',views.addRoundOne, name = 'add_round_one'),
+    path('add/company', views.addCompany, name = 'add_company'),
+    path('add/companyOne', views.addCompanyOne, name = 'add_company_one'),
     path('adminProhibitted/', views.adminProhibitted, name='adminProhibitted'),
 ]
 
