@@ -17,3 +17,11 @@
     src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
 }
 
+body{
+    text-align: center;
+}
+
+.main{
+    padding: 20% 0 20%;
+}
+
