@@ -27,6 +27,17 @@ h1{
     padding-bottom: 1rem;
 }
 
+h2{
+    font-size: 2.25rem;
+    font-family: 'TeleRegular';
+    padding-bottom: 0.75rem;
+}
+
+p{
+    font-size: 1.25rem;
+    font-family: 'TeleLight';
+    
+}
 .main{
     padding: 15% 0 15%;
 }
