@@ -475,7 +475,7 @@ def addCompanyOne(request):
             Country = form.data['country_code']
             WayraInvestment = form.data['wayra_investment']
             Description = form.data['description']
-            FounderName = form.data['founderName']
+            FounderName = form.data['founder_Name']
             try:
                 founder = Entity.objects.get(name=FounderName)
             except Entity.DoesNotExist:
