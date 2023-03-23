@@ -270,7 +270,7 @@ def addCompany(request):
             Document.objects.all().delete()
             return redirect("portfolio")
         else:
-            return HttpResponse(form.errors.as_data())
+            return render(request, 'addCompany.html', {'form': form, 'error':'Please upload a .xlsx file.'})
     else:
         form = DocumentForm() #A empty, unbound form
         return render(request, 'addCompany.html', {'form': form})

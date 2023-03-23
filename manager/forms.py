@@ -1,7 +1,8 @@
 from django import forms
 from .models import *
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, FileExtensionValidator
 from django.forms import ModelForm
+from decimal import Decimal
 
 
 class LoginForm(forms.Form):
@@ -29,12 +30,15 @@ class DocumentForm(ModelForm):
     class Meta:
         model = Document
         fields = ['upload']
+        validators = [
+            FileExtensionValidator(allowed_extensions=['xlsx'])
+        ]
 
 class CompanyForm(forms.Form):
     name = forms.CharField(max_length=50)
     number = forms.CharField(max_length=50)
     country_code = forms.CharField(max_length=15)
-    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3)
+    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3, validators=[MinValueValidator(Decimal('0.00'))])
     description = forms.CharField(max_length=200)
     founderName = forms.CharField(max_length=50)
     
