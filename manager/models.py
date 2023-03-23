@@ -1,7 +1,6 @@
-import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from pandas._libs.tslibs.parsing import parse_datetime_string
 
 # Create your models here.
@@ -17,10 +16,12 @@ class User(AbstractUser):
     
     user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
 
+    REQUIRED_FIELDS=["user_type"]
     def full_name(self):
         return (self.first_name + " " + self.last_name) #Get string with name and surname
+    
 
-    pass
+    objects: UserManager = UserManager()
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
