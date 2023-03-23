@@ -7,6 +7,23 @@
 
 {% block contents %}
 <h1 class="mt-4">All Investors</h1>
+
+<h1></h1>
+
+<div class="btn-group">
+
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add new records <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <li><a href="{% url 'add_investor_one' %}">Manual Entry</a></li>
+  </ul>
+
+</div>
+
+<h1></h1>
+
 {% include 'partials/entity_table.html' with data=data %}
 {% include 'partials/tables_javascript.html' %}
 {% endblock %}
