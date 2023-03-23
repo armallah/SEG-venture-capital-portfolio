@@ -85,7 +85,7 @@ class Investing(models.Model):
     investor = models.ForeignKey(Entity, on_delete=models.CASCADE, null=False)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=False)
 
-    amount = models.DecimalField(max_digits = 20, decimal_places=3, null=False, min = 0)
+    amount = models.DecimalField(max_digits = 20, decimal_places=3, null=False,validators = [MinValueValidator(0)])
 
     def get_amount(self):
         return self.amount
