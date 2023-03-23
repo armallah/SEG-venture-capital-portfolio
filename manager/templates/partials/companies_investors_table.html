@@ -1,0 +1,32 @@
+{% load static %}
+<style>
+  .ui-widget-header {
+    background: #ededed
+  }
+</style>
+<table id="display-tables" class="display compact" style="width:100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Total Companies Founded</th>
+      <th>Amount investment</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for investor in data %}
+      <tr>
+        <td>{{ investor.id }}</td>
+        <td><a href="{% url 'entity_view' investor.name %}">{{ investor.name }}</td>
+        <td>{{ investor.founding_company.count }}</td>
+        <td> 
+          {% for investment in investor.investing_set.all %}
+            {% if investment.company == company %}
+              {{ investment.amount }}
+            {% endif %}
+          {% endfor %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
