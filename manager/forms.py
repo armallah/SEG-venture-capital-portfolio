@@ -1,11 +1,8 @@
 from django import forms
 from .models import *
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, FileExtensionValidator
 from django.forms import ModelForm
-from django.core.validators import MinValueValidator
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-
+from decimal import Decimal
 
 
 class LoginForm(forms.Form):
@@ -33,18 +30,36 @@ class DocumentForm(ModelForm):
     class Meta:
         model = Document
         fields = ['upload']
+        validators = [
+            FileExtensionValidator(allowed_extensions=['xlsx'])
+        ]
 
 class CompanyForm(forms.Form):
-    name = forms.CharField(max_length=50, required=True)
-    number = forms.CharField(max_length=50, required=True)
-    country_code = forms.CharField(max_length=15, required=True)
-    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3, required=True, min_value=0)
+    name = forms.CharField(max_length=50)
+    number = forms.CharField(max_length=50)
+    country_code = forms.CharField(max_length=15)
+    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3, validators=[MinValueValidator(Decimal('0.00'))])
     description = forms.CharField(max_length=200)
+    founder_Name = forms.CharField(max_length=50)
+    
+class InvestorForm(ModelForm):
+    class Meta:
+        model = Investing
+        fields = ['investor', 'company','amount']
 
-    #founderNameList = forms.CharField()
-    #investorNameList = forms.CharField()
-    #investorAmountList = forms.CharField()
-    #rightList = forms.CharField()
+class RightForm(ModelForm):
+    class Meta:
+        model = Right
+        fields = ['name','holding_right']
+
+class RoundForm(ModelForm):
+    class Meta:
+        model = Round
+        fields = ['company','round_number','equity','wayra_equity','pre_money_valuation']
+
+class FounderForm(forms.Form):
+    name = forms.CharField(max_length=50)
+    company = forms.CharField(max_length=50)
 
 class AddNewUser(forms.ModelForm):
     class Meta:
