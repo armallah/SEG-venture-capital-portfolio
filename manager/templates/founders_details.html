@@ -9,32 +9,30 @@
 
 {% block content %}
 <script>
-    function redirectTo(buttonName) {
-      window.location.href = '/companies/' + '{{ company.name }}' + '/' + buttonName;
-    }
-    
+  function redirectTo(buttonName) {
+    window.location.href = '/companies/' + '{{ company.name }}' + '/' + buttonName;
+  }  
 </script>
-{% comment %} re tab everything {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/founders_and_investors.css' %}">
 <div class="container-fluid">
-    <div class="row">
-        <div class="header-nav">
-            <h1 class="page-header search-header">{{ company.name }}</h1>
-            <nav class="nav-bar">
-                <div class="button-group">
-                    <button class="button" onclick="redirectTo('')">Summary</button>
-                    <button class="button active-button" onclick="redirectTo('founders')">Founders</button> 
-                    <button class="button" onclick="redirectTo('investors')">Investors</button>                    
-                </div>
-            </nav>
-        </div>
-    </div>    
-    <div class="row">
-      <div class="card-container">
-        <div class="detailed-table">
-          {% include 'partials/founders_table.html' with data=company.founders.all %}
-        <div>
-      </div>
+  <div class="row">
+    <div class="header-nav">
+      <h1 class="page-header search-header">{{ company.name }}</h1>
+        <nav class="nav-bar">
+          <div class="button-group">
+            <button class="button" onclick="redirectTo('')">Summary</button>
+            <button class="button active-button" onclick="redirectTo('founders')">Founders</button> 
+            <button class="button" onclick="redirectTo('investors')">Investors</button>                    
+          </div>
+        </nav>
+    </div>
+  </div>    
+  <div class="row">
+    <div class="card-container">
+      <div class="detailed-table">
+        {% include 'partials/companies_founders_table.html' with data=company.founders.all %}
+      <div>
+    </div>
   </div>
 </div>
 {% include 'partials/tables_javascript.html' %}

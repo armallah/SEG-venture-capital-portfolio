@@ -10,49 +10,49 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/entityDetails.css' %}">
 <div class="container-fluid">
-    <div class="row">
-        <div class="header-nav">
-            <h1 class="page-header search-header">{{ entity.name }}</h1>
-        </div>
-    </div>    
-    <div class="row">
-      <div class="card">
-        <div class="card card-about">
-          <h2 class="card-h2">About</h2>
+  <div class="row">
+    <div class="header-nav">
+      <h1 class="page-header search-header">{{ entity.name }}</h1>
+    </div>
+  </div>    
+  <div class="row">
+    <div class="card">
+      <div class="card card-about">
+        <h2 class="card-h2">About</h2>
           <p>Information about the company goes here</p>
-        </div>
       </div>
+    </div>
       <div class="card-container">
         <div class="card card-about">
           <h2 class="card-h2">Investing Companies</h2>
-          <div class="detailed-table">
-            <table id="investing-companies">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Country Code</th>
-                  <th>Name</th>
-                  <th>Amount invested</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for company in entity.invested_company.all %}
+            <div class="detailed-table">
+              <table id="investing-companies">
+                <thead>
                   <tr>
-                    <td> {{ company.id }} </td>
-                    <td>{{ company.country_code }}</td>
-                    <td><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></td>
-                    <td>
-                        {% for investment in entity.investing_set.all %}
-                            {% if investment.company == company %}
-                                {{ investment.amount }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
+                    <th>ID</th>
+                    <th>Country Code</th>
+                    <th>Name</th>
+                    <th>Amount invested</th>
                   </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {% for company in entity.invested_company.all %}
+                    <tr>
+                      <td> {{ company.id }} </td>
+                      <td>{{ company.country_code }}</td>
+                      <td><a href="{% url 'company_view' company.name %}">{{ company.name }}</a></td>
+                      <td>
+                        {% for investment in entity.investing_set.all %}
+                          {% if investment.company == company %}
+                              {{ investment.amount }}
+                          {% endif %}
+                        {% endfor %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
         </div>
         <div class="card card-news">
           <h2 class="card-h2">Founding Companies</h2>

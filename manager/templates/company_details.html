@@ -12,57 +12,56 @@
     }
     
 </script>
-{% comment %} re tab everything {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/companyDetails.css' %}">
 <div class="container-fluid">
-    <div class="row">
-        <div class="header-nav">
-            <h1 class="page-header search-header">{{ company.name }}</h1>
-            <nav class="nav-bar">
-                <div class="button-group">
-                    <button class="button active-button" onclick="redirectTo('')">Summary</button>
-                    <button class="button" onclick="redirectTo('founders')">Founders</button>
-                    <button class="button" onclick="redirectTo('investors')">Investors</button>
-                </div>
-            </nav>
+  <div class="row">
+    <div class="header-nav">
+      <h1 class="page-header search-header">{{ company.name }}</h1>
+        <nav class="nav-bar">
+          <div class="button-group">
+            <button class="button active-button" onclick="redirectTo('')">Summary</button>
+            <button class="button" onclick="redirectTo('founders')">Founders</button>
+            <button class="button" onclick="redirectTo('investors')">Investors</button>
+          </div>
+        </nav>
+    </div>
+  </div>    
+  <div class="row">
+    <div class="card-container">
+      <div class="card card-about">
+        <h2 class="card-h2">About</h2>
+          <p>Information about the company goes here</p>
+            <div class="about-card">
+              <p><strong>Country Code:</strong> {{ company.country_code }}</p>
+              <p><strong>Number:</strong> {{ company.number }}</p>
+            </div>
+      </div>
+        <div class="card card-highlights">
+          <h2 class="card-h2">Highlights</h2>
+          <p>Highlights text</p>
+          <div class="founder-investor-buttons">
+            <button class="info-button" onclick="redirectTo('founders')" id="founderButton">
+              <span class="button-text">Founders</span>
+              <span class="button-number">{{ company.founders.count }}</span>
+              <span class="arrow">&gt;</span>
+            </button>
+            <button class="info-button" onclick="redirectTo('investors')" id="investorButton">
+              <span class="button-text">Investors</span>
+              <span class="button-number">{{ company.investors.count }}</span>
+              <span class="arrow">&gt;</span>
+            </button>
+          </div>
         </div>
-    </div>    
-    <div class="row">
-      <div class="card-container">
-          <div class="card card-about">
-              <h2 class="card-h2">About</h2>
-              <p>Information about the company goes here</p>
-              <div class="about-card">
-                <p><strong>Country Code:</strong> {{ company.country_code }}</p>
-                <p><strong>Number:</strong> {{ company.number }}</p>
-              </div>
+        <div class="card card-news">
+          <div>
+            <h2 class="card-h2">Wayra Rights</h2>
+              <ul>
+                {% for right in company.wayra_right.all %}
+                  <li>{{ right.name }}</li>
+                {% endfor %}
+              </ul>
           </div>
-          <div class="card card-highlights">
-              <h2 class="card-h2">Highlights</h2>
-              <p>Highlights text</p>
-              <div class="founder-investor-buttons">
-                <button class="info-button" onclick="redirectTo('founders')" id="founderButton">
-                  <span class="button-text">Founders</span>
-                  <span class="button-number">{{ company.founders.count }}</span>
-                  <span class="arrow">&gt;</span>
-                </button>
-                <button class="info-button" onclick="redirectTo('investors')" id="investorButton">
-                  <span class="button-text">Investors</span>
-                  <span class="button-number">{{ company.investors.count }}</span>
-                  <span class="arrow">&gt;</span>
-                </button>
-              </div>
-          </div>
-          <div class="card card-news">
-              <div>
-                <h2 class="card-h2">Wayra Rights</h2>
-                <ul>
-                  {% for right in company.wayra_right.all %}
-                    <li>{{ right.name }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-          </div>
+        </div>
       </div>
   </div>
 </div>
