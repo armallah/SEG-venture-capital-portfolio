@@ -361,8 +361,8 @@ def adminDeleteUser(request, userID):
     account.delete()
     return HttpResponseRedirect(reverse('users'))
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def addCompany(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
