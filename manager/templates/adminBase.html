@@ -87,19 +87,22 @@
         <div id="sidebar-wrapper">
            <ul class="sidebar-nav" id="menu">
               <li>
-                 <a href="{% url 'dashboard' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x"></i></span>Dashboard</a>
+                 <a href="{% url 'adminDashboard' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x"></i></span>Dashboard</a>
               </li>
               <li>
-                 <a href="{% url 'portfolio' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-briefcase fa-stack-1x"></i></span>Portfolio</a>
+                 <a href="{% url 'adminPortfolio' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-briefcase fa-stack-1x"></i></span>Portfolio</a>
               </li>
               <li>
-                 <a href="{% url 'entities' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-building fa-stack-1x"></i></span>Investors</a>
+                 <a href="{% url 'adminEntities' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-building fa-stack-1x"></i></span>Investors</a>
               </li>
               <li>
-                 <a href="{% url 'founders' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x"></i></span>Founders</a>
+                 <a href="{% url 'adminFounders' %}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x"></i></span>Founders</a>
               </li>
               <li>
-                 <a href="{% url 'ecosystem' %}"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-database fa-stack-1x"></i></span>Ecosystem</a>
+                 <a href="{% url 'adminEcosystem' %}"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-database fa-stack-1x"></i></span>Ecosystem</a>
+              </li>
+              <li>
+                 <a href="{% url 'users' %}"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-user-plus fa-stack-1x"></i></span>Accounts</a>
               </li>
               <!--
               <li>

@@ -10,6 +10,7 @@
   <td style="text-align: center;">{{ item.getTotalFounders }}</td>
   <td style="text-align: center;">{{ item.getTotalInvestors }}</td>
   <td style="text-align: center;">{{ item.getTotalRounds }}</td>
+  {% if 'admin' in request.get_full_path %}
   <td style="text-align: center;">
     <form action="{% url 'adminDeleteCompany' item.id %}" method="post">
       {% csrf_token %}
@@ -19,4 +20,5 @@
       </button>
     </form>
   </td>
+  {% endif %}
 </tr>
