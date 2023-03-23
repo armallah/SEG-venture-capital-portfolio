@@ -2,6 +2,10 @@ from django import forms
 from .models import *
 from django.core.validators import RegexValidator
 from django.forms import ModelForm
+from django.core.validators import MinValueValidator
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 
 class LoginForm(forms.Form):
@@ -31,11 +35,12 @@ class DocumentForm(ModelForm):
         fields = ['upload']
 
 class CompanyForm(forms.Form):
-    name = forms.CharField(max_length=50)
-    number = forms.CharField(max_length=50)
-    country_code = forms.CharField(max_length=15)
-    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3)
+    name = forms.CharField(max_length=50, required=True)
+    number = forms.CharField(max_length=50, required=True)
+    country_code = forms.CharField(max_length=15, required=True)
+    wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3, required=True, min_value=0)
     description = forms.CharField(max_length=200)
+
     #founderNameList = forms.CharField()
     #investorNameList = forms.CharField()
     #investorAmountList = forms.CharField()
