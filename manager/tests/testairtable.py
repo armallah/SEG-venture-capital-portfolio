@@ -38,3 +38,4 @@ class LogInViewTestCase(TestCase):
         self.assertEqual(round2b.equity, 674995)
         self.assertEqual(round2b.wayra_equity, 0)
         self.assertEqual(round2b.pre_money_valuation, 6924680)
+        
