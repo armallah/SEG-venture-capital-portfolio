@@ -28,8 +28,6 @@ urlpatterns = [
     path('companies/<str:name>/', views.company_view, name='company_view'),
     path('dashboard/', views.dashboard, name = 'dashboard'),
     path('portfolio/', views.portfolio, name = 'portfolio'),
-    path('companies/<str:company_name>/founders/', views.company_founders, name='company_founders'),
-    path('companies/<str:company_name>/investors/', views.company_investors, name='company_investors'),
     path('entities/', views.entities, name = 'entities'),
     path('founders/', views.founders, name = 'founders'),
     path('ecosystem/', views.ecosystem, name = 'ecosystem'),
@@ -37,8 +35,12 @@ urlpatterns = [
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
-    path('add/company', views.addCompany, name = 'add_company'),
-    path('add/companyOne', views.addCompanyOne, name = 'add_company_one'),
+    path('add/companySpreadsheet', views.addCompany, name = 'add_company'),
+    path('add/company', views.addCompanyOne, name = 'add_company_one'),
+    path('add/founder',views.addFounderOne, name = 'add_founder_one'),
+    path('add/investor',views.addInvestorOne, name = 'add_investor_one'),
+    path('add/right',views.addRightOne, name = 'add_right_one'),
+    path('add/round',views.addRoundOne, name = 'add_round_one'),
     path('adminProhibitted/', views.adminProhibitted, name='adminProhibitted'),
 ]
 
