@@ -189,9 +189,14 @@ def company_view(request, name):
 
 # @login_required
 def entities(request):
-    investingCompanies = Entity.objects.all()
+    data = Entity.objects.all()
+    investingCompanies = []
+
+    for entry in data:
+        if (entry.getTotalInvestedCompanies() > 0):
+            investingCompanies.append(entry)
     context = {
-    'data' : investingCompanies
+        'data' : investingCompanies
     }
     return render(request, 'entities.html', context)
 
@@ -204,9 +209,15 @@ def sync(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 def founders(request):
-    foundingCompanies = Entity.objects.all()
+    data = Entity.objects.all()
+    foundingCompanies = []
+
+    for entry in data:
+        if (entry.getTotalFoundedCompanies() > 0):
+            foundingCompanies.append(entry)
+
     context = {
-    'data' : foundingCompanies
+        'data' : foundingCompanies
     }
     return render(request, 'founders.html', context)
 
