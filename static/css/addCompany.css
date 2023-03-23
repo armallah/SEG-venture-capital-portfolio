@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'TeleBold';
+    src: url('../fonts/TelefonicaWeb-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'TeleRegular';
+    src: url('../fonts/TelefonicaWeb-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'TeleLight';
+    src: url('../fonts/TelefonicaWeb-Light.ttf');
+}
+@font-face {
+    font-family: 'TeleExtraLight';
+    src: url('../fonts/TelefonicaWeb-ExtraLight.ttf');
+}
+
+body{
+    text-align: center;
+    background-color: rgba(25, 93, 181, 0.2);
+}
+
+h1{
+    font-size: 5rem;
+    font-family: 'TeleBold';
+    padding-bottom: 1rem;
+}
+
+h2{
+    font-size: 2.25rem;
+    font-family: 'TeleRegular';
+    padding-bottom: 0.75rem;
+}
+
+p{
+    font-size: 1.25rem;
+    font-family: 'TeleLight';
+    padding-left: 8rem;
+    padding-bottom: 1rem;
+}
+
+.main{
+    padding: 15% 0 15%;
+}
+
+input[type=file]::file-selector-button{
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    font-family: 'TeleLight';
+}
+
+input[type=file]::file-selector-button:hover{
+    background-color:rgba(0, 0, 0, 0.479)
+}
+
+input[type=submit]{
+    background-color: black;
+    color: white;
+    font-family: 'TeleLight';
+    border-radius: 15px;
+    padding: 10px 120px;
+    font-size: 2rem;
+}
+
+input[type=submit]:hover{
+    background-color:rgba(0, 0, 0, 0.479)
+}
