@@ -46,7 +46,10 @@ def log_in(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard')
+                if user.user_type == 1:
+                    return redirect('dashboard')
+                elif user.user_type == 2:
+                    return redirect('adminDashboard')
             else:
                 messages.add_message(request, messages.ERROR, "The credentials provided were invalid!")
 
@@ -174,8 +177,8 @@ def get_dashboard_context():
 def dashboard(request):
     return render(request, 'dashboard.html', get_dashboard_context())
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDashboard(request):
     return render(request, 'adminDashboard.html', get_dashboard_context())
 
@@ -212,8 +215,8 @@ def entities(request):
     }
     return render(request, 'entities.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEntities(request):
     context = {
         'data' : get_all_investors()
@@ -245,8 +248,8 @@ def founders(request):
     }
     return render(request, 'founders.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminFounders(request):
     context = {
         'data' : get_all_founders()
@@ -267,8 +270,8 @@ def portfolio(request):
     }
     return render(request, 'portfolio.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminPortfolio(request):
     context = {
         'data' : get_all_portfolio_companies(),
@@ -286,16 +289,16 @@ def ecosystem(request):
     }
     return render(request, 'ecosystem.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEcosystem(request):
     context = {
         'data' : get_all_ecosystem_companies(),
     }
     return render(request, 'adminEcosystem.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def users(request):
     allUsers = User.objects.all().filter(user_type=1) #.exclude(id=request.user.id).order_by('id')
     context = {
@@ -303,15 +306,15 @@ def users(request):
     }
     return render(request, 'users.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDeleteCompany(request, compID):
     comp = Company.objects.get(id=compID)
     comp.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminAddUser(request):
     if request.method == 'POST':
         form = AddNewUser(request.POST)
@@ -328,8 +331,8 @@ def adminAddUser(request):
     }
     return render(request, 'admin_add_user.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEditUser(request, userID):
     account = User.objects.get(id=userID)
     if request.method == 'POST':
@@ -354,8 +357,8 @@ def adminEditUser(request, userID):
 
     return render(request, 'admin_edit_user.html', context)
 
-@login_required
-@user_passes_test(admin_test, login_url='adminProhibitted')
+# @login_required
+# @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDeleteUser(request, userID):
     account = User.objects.get(id=userID)
     account.delete()
