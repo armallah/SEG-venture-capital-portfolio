@@ -186,12 +186,10 @@ def addCompany(request):
         if form.is_valid():
 
 
-            df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string', 'Wayra Investment': 'float', 'Description': 'string'})
-
-            Company.objects.all().delete()
-            Entity.objects.all().delete()
-            Investing.objects.all().delete()
-            Right.objects.all().delete()
+            try:
+                df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string', 'Wayra Investment': 'float', 'Description': 'string'})
+            except:
+                return render(request, 'addCompany.html', {'form': form, 'error':'Please make sure your file is in the correct format.'})
 
             for x in range(df.shape[0]):
                 name = df.iloc[x, 0].strip()
@@ -280,10 +278,7 @@ def addCompany(request):
 def addCompanyOne(request):
     if request.method == 'POST':
         form = CompanyForm(request.POST)
-        #Company.objects.all().delete()
-        #Entity.objects.all().delete()
-        #Investing.objects.all().delete()
-        #Right.objects.all().delete()
+
         if form.is_valid():
             Name = form.data['name']
             
@@ -314,10 +309,7 @@ def addCompanyOne(request):
 def addFounderOne(request):
     if request.method == 'POST':
         form = FounderForm(request.POST)
-        #Company.objects.all().delete()
-        #Entity.objects.all().delete()
-        #Investing.objects.all().delete()
-        #Right.objects.all().delete()
+
         if form.is_valid():
             Name = form.data['name']
             CompanyName = form.data['company']

@@ -40,7 +40,7 @@ class CompanyForm(forms.Form):
     country_code = forms.CharField(max_length=15)
     wayra_investment = forms.DecimalField(max_digits=10, decimal_places=3, validators=[MinValueValidator(Decimal('0.00'))])
     description = forms.CharField(max_length=200)
-    founderName = forms.CharField(max_length=50)
+    founder_Name = forms.CharField(max_length=50)
     
 class InvestorForm(ModelForm):
     class Meta:
