@@ -49,6 +49,8 @@ urlpatterns = [
     path('add/right',views.addRightOne, name = 'add_right_one'),
     path('add/round',views.addRoundOne, name = 'add_round_one'),
     path('adminProhibitted/', views.adminProhibitted, name='adminProhibitted'),
+    path('companies/<str:company_name>/founders/', views.company_founders, name='company_founders'),
+    path('companies/<str:company_name>/investors/', views.company_investors, name='company_investors'),
     path('reset_password' , auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name='reset_password'),
     path('reset_password_sent', auth_views.PasswordResetDoneView.as_view(template_name="password_reset_sent.html"), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_form.html"), name='password_reset_confirm'),
