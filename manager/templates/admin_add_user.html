@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Users</title>
+{% endblock %}
+
+{% block contents %}
+<h1>New Viewing Account</h1>
+<p>Enter details below to create a new basic viewing account.</p>
+
+{# {{ form.non_field_errors }} #}
+
+{% for message in messages %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+{% endfor %}
+
+<form action = "{% url 'adminAddUser' %}" method = "post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    {# {{ form.as_p }} #}
+    <input type="submit" value="Submit" onclick="return confirm('Are you sure all details are correct?');">
+</form>
+
+{% endblock %}

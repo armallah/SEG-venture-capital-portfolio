@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title%}
+    <title>Access Denied</title>
+    {% endblock %}
+
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'Wayra-Icon-Black.ico' %}">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.jqueryui.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'layoutBase.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboardCardStyles.css' %}">
+  </head>
+
+  <body>
+
+    <h1>Access Denied</h1>
+    <h3>You do not have permission to access this page.</h3>
+    <h3>This page can only be accessed by administrator accounts</h3>
+
+  </body>
+
+</html>

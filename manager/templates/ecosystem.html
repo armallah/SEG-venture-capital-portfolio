@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Ecosystem</title>
+{% endblock %}
+
+{% block contents %}
+<h1 class="mt-4">Wayra Ecosystem</h1>
+
+<h1></h1>
+<!--
+<button type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false">
+  Sync
+</button>
+-->
+
+<div class="btn-group" role="group">
+
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add new records <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <li><a href="{% url 'add_company_one' %}">Manual Entry</a></li>
+    <li><a href="{% url 'add_company' %}">File Upload</a></li>
+  </ul>
+
+  <form action="{% url 'sync airtable'%}" method="post" style="display:inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i></button>
+  </form>
+
+</div>
+
+
+
+
+<!-- <form action="{% url 'sync airtable' %}" method="post">
+  {% csrf_token %}
+  <button type="button" href="{% url 'sync airtable' %}" class="btn btn-default" aria-haspopup="true" aria-expanded="false">
+    Sync
+  </button>
+</form> -->
+
+<!-- Split button -->
+<!--
+<div class="btn-group">
+  <button type="button" class="btn">Add new records</button>
+  <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Manual Entry</a></li>
+    <li><a href="#">File Upload</a></li>
+  </ul>
+</div>
+-->
+
+<h1></h1>
+
+{% include 'partials/ecosystem_table.html' with data=data %}
+{% include 'partials/tables_javascript.html' %}
+{% endblock %}

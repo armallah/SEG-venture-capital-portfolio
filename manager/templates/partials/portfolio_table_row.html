@@ -1,10 +1,15 @@
+{% load humanize %}
+
 <tr>
-  <td>{{ item.id }}</td>
+  <td style="text-align: center;">{{ item.id }}</td>
   <td>{{ item.name }}</td>
-  <td>{{ item.number }}</td>
-  <td>{{ item.country_code }}</td>
-  <td>{{ item.documents }}</td>
-  <td>{{ item.investors }}</td>
-  <td>{{ item.founders }}</td>
-  <td>{{ item.wayra_right }}</td>
+  <td style="text-align: center;">{{ item.number }}</td>
+  <td style="text-align: center;">{{ item.country_code }}</td>
+  <td style="text-align: center;">{{ item.documents }}</td>
+  <td style="text-align: center;">{{ item.wayra_investment |intcomma }}</td>
+  <td style="text-align: center;">{{ item.getTotalRights }}</td>
+  <td>{{ item.description }}</td>
+  <td style="text-align: center;">{{ item.getTotalInvestors }}</td>
+  <td style="text-align: center;">{{ item.getTotalFounders }}</td>
+  <td style="text-align: center;">{{ item.getTotalRounds }}</td>
 </tr>
