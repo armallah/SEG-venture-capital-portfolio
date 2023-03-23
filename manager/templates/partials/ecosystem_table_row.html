@@ -1,13 +1,24 @@
 <tr>
-  <td>{{ item.id }}</td>
-  <td>{{ item.name }}</td>
-  <td>{{ item.number }}</td>
-  <td>{{ item.country_code }}</td>
-  <td>{{ item.documents }}</td>
-  <td>{{ item.wayra_investment }}</td>
-  <td>{{ item.wayra_right }}</td>
+  <td style="text-align: center;">{{ item.id }}</td>
+  <td><a href="#" target="_blank">{{ item.name }}</a></td>
+  <td style="text-align: center;">{{ item.number }}</td>
+  <td style="text-align: center;">{{ item.country_code }}</td>
+  <td style="text-align: center;">{{ item.documents }}</td>
+  <td style="text-align: center;">{{ item.wayra_investment }}</td>
+  <td style="text-align: center;">{{ item.getTotalRights }}</td>
   <td>{{ item.description }}</td>
-  <td>{{ item.investors }}</td>
-  <td>{{ item.founders }}</td>
-  <td>{{ item.rounds }}</td>
+  <td style="text-align: center;">{{ item.getTotalFounders }}</td>
+  <td style="text-align: center;">{{ item.getTotalInvestors }}</td>
+  <td style="text-align: center;">{{ item.getTotalRounds }}</td>
+  {% if 'admin' in request.get_full_path %}
+  <td style="text-align: center;">
+    <form action="{% url 'adminDeleteCompany' item.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" value="{{ item.id }}" />
+      <button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Are you sure you want to delete this company record?');">
+          <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </form>
+  </td>
+  {% endif %}
 </tr>

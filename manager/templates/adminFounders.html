@@ -1,0 +1,12 @@
+{% extends 'adminBase.html' %}
+{% load static %}
+
+{% block title %}
+<title>Founders</title>
+{% endblock %}
+
+{% block contents %}
+<h1 class="mt-4">All Founders</h1>
+{% include 'partials/founders_table.html' with data=data %}
+{% include 'partials/tables_javascript.html' %}
+{% endblock %}

@@ -1,7 +1,6 @@
-import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from pandas._libs.tslibs.parsing import parse_datetime_string
 
 # Create your models here.
@@ -11,12 +10,15 @@ class User(AbstractUser):
         (1, 'viewer'),
         (2, 'admin'),
     )
-    user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES)
+    user_type = models.PositiveSmallIntegerField(choices = USER_TYPE_CHOICES, default=1)
+    
 
+    REQUIRED_FIELDS=["user_type"]
     def full_name(self):
         return (self.first_name + " " + self.last_name) #Get string with name and surname
+    
 
-    pass
+    objects: UserManager = UserManager()
 
 class Entity(models.Model):
     name = models.CharField(max_length=50)
@@ -24,8 +26,17 @@ class Entity(models.Model):
     ## The following is made only to appease the type checker (No special stuff here)
     invested_company: models.QuerySet["Company"]
     founding_company: models.QuerySet["Company"]
+    def __str__(self):
+        return self.name
+
     def getName(self):
         return self.name
+
+    def getTotalFoundedCompanies(self):
+        return self.founding_company.count()
+
+    def getTotalInvestedCompanies(self):
+        return self.invested_company.count()
 
 class Company(models.Model):
     name = models.CharField(max_length=50)
@@ -59,12 +70,24 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+    def getTotalInvestors(self):
+        return self.investors.count()
+
+    def getTotalFounders(self):
+        return self.founders.count()
+
+    def getTotalRounds(self):
+        return self.rounds.count()
+
+    def getTotalRights(self):
+        return self.wayra_right.count()
+
 
 class Investing(models.Model):
-    investor = models.ForeignKey(Entity, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    investor = models.ForeignKey(Entity, on_delete=models.CASCADE, null=False)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=False)
 
-    amount = models.DecimalField(max_digits = 20, decimal_places=3)
+    amount = models.DecimalField(max_digits = 20, decimal_places=3, null=False,validators = [MinValueValidator(0)])
 
     def get_amount(self):
         return self.amount

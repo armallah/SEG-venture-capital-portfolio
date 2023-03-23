@@ -9,14 +9,13 @@
       <th>ID</th>
       <th>Name</th>
       <th>Total Companies Founded</th>
+      <th>Total Companies Invested</th>
     </tr>
   </thead>
   <tbody>
-    {% include 'partials/tempFoundersTable.html' %}
-    <!--
+    <!-- {% include 'partials/tempFoundersTable.html' %} -->
    {% for item in data %}
      {% include 'partials/founders_table_row.html' with item=item %}
    {% endfor %}
-   -->
   </tbody>
 </table>

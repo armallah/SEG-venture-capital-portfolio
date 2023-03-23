@@ -27,15 +27,27 @@ urlpatterns = [
     path('entities/<str:name>/', views.entity_view, name='entity_view'),
     path('companies/<str:name>/', views.company_view, name='company_view'),
     path('dashboard/', views.dashboard, name = 'dashboard'),
+    path('adminDashboard/', views.adminDashboard, name = 'adminDashboard'),
     path('portfolio/', views.portfolio, name = 'portfolio'),
+    path('adminPortfolio/', views.adminPortfolio, name = 'adminPortfolio'),
     path('entities/', views.entities, name = 'entities'),
+    path('adminEntities/', views.adminEntities, name = 'adminEntities'),
     path('founders/', views.founders, name = 'founders'),
+    path('adminFounders/', views.adminFounders, name = 'adminFounders'),
     path('ecosystem/', views.ecosystem, name = 'ecosystem'),
+    path('adminEcosystem/', views.adminEcosystem, name = 'adminEcosystem'),
     path('users/', views.users, name = 'users'),
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
+    path('adminDeleteCompany/<int:compID>', views.adminDeleteCompany, name='adminDeleteCompany'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
-    path('add/company', views.addCompany, name = 'add_company')
+    path('add/companySpreadsheet', views.addCompany, name = 'add_company'),
+    path('add/company', views.addCompanyOne, name = 'add_company_one'),
+    path('add/founder',views.addFounderOne, name = 'add_founder_one'),
+    path('add/investor',views.addInvestorOne, name = 'add_investor_one'),
+    path('add/right',views.addRightOne, name = 'add_right_one'),
+    path('add/round',views.addRoundOne, name = 'add_round_one'),
+    path('adminProhibitted/', views.adminProhibitted, name='adminProhibitted'),
 ]
 
 

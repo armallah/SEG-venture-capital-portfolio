@@ -17,6 +17,9 @@
       <th>Total Founders</th>
       <th>Total Investors</th>
       <th>Total Rounds</th>
+      {% if 'admin' in request.get_full_path %}
+        <th></th> <!-- Delete -->
+      {% endif %}
     </tr>
   </thead>
   <tbody>

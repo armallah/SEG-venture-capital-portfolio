@@ -1,12 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'adminBase.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
-<title>Ecosystem</title>
+<title>Portfolio Companies</title>
 {% endblock %}
 
 {% block contents %}
-<h1 class="mt-4">Wayra Ecosystem</h1>
+<h1 class="mt-4">Wayra Investment Portfolio</h1>
 
 <h1></h1>
 <!--
@@ -15,7 +16,8 @@
 </button>
 -->
 
-<div class="btn-group" role="group">
+
+<div class="btn-group">
 
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Add new records <span class="caret"></span>
@@ -32,9 +34,6 @@
   </form>
 
 </div>
-
-
-
 
 <!-- <form action="{% url 'sync airtable' %}" method="post">
   {% csrf_token %}
@@ -60,6 +59,6 @@
 
 <h1></h1>
 
-{% include 'partials/ecosystem_table.html' with data=data %}
+{% include 'partials/portfolio_table.html' with data=data %}
 {% include 'partials/tables_javascript.html' %}
 {% endblock %}
