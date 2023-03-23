@@ -58,8 +58,8 @@ class RoundForm(ModelForm):
         fields = ['company','round_number','equity','wayra_equity','pre_money_valuation']
 
 class FounderForm(forms.Form):
-    name = forms.CharField(max_length=50)
-    company = forms.CharField(max_length=50)
+    name = forms.CharField(max_length=50, required=True)
+    company = forms.CharField(max_length=50, required=True)
 
 class AddNewUser(forms.ModelForm):
     class Meta:
