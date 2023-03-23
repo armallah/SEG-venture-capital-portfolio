@@ -9,6 +9,15 @@ from manager.models import User
 class AddNewUserViewTestCase(TestCase):
 
     def setUp(self):
+        user = User.objects.create_user(
+            username='username',
+            password='password',
+            user_type = 2 
+        )
+        
+        self.client.login(username='username', password='password')
+
+
         self.url = reverse('adminAddUser')
         self.form_input = {
             'first_name': 'Jay',
