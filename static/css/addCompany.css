@@ -21,7 +21,13 @@ body{
     text-align: center;
 }
 
+h1{
+    font-size: 5rem;
+    font-family: 'TeleBold';
+    padding-bottom: 1rem;
+}
+
 .main{
-    padding: 20% 0 20%;
+    padding: 15% 0 15%;
 }
 
