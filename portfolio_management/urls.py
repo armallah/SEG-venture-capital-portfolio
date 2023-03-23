@@ -34,6 +34,7 @@ urlpatterns = [
     path('users/', views.users, name = 'users'),
     path('adminAddUser/', views.adminAddUser, name='adminAddUser'),
     path('adminDeleteUser/<int:userID>', views.adminDeleteUser, name='adminDeleteUser'),
+    path('adminDeleteCompany/<int:compID>', views.adminDeleteCompany, name='adminDeleteCompany'),
     path('adminEditUser/<int:userID>', views.adminEditUser, name='adminEditUser'),
     path('add/companySpreadsheet', views.addCompany, name = 'add_company'),
     path('add/company', views.addCompanyOne, name = 'add_company_one'),

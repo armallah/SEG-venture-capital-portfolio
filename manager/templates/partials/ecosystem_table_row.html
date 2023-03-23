@@ -10,4 +10,13 @@
   <td style="text-align: center;">{{ item.getTotalFounders }}</td>
   <td style="text-align: center;">{{ item.getTotalInvestors }}</td>
   <td style="text-align: center;">{{ item.getTotalRounds }}</td>
+  <td style="text-align: center;">
+    <form action="{% url 'adminDeleteCompany' item.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" value="{{ item.id }}" />
+      <button type="submit" class="btn btn-default btn-sm" onclick="return confirm('Are you sure you want to delete this company record?');">
+          <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </form>
+  </td>
 </tr>

@@ -236,8 +236,12 @@ def users(request):
     context = {
         'data' : allUsers,
     }
-    print(allUsers)
     return render(request, 'users.html', context)
+
+def adminDeleteCompany(request, compID):
+    comp = Company.objects.get(id=compID)
+    comp.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
 
 #@login_required
 #@user_passes_test(admin_test, login_url='adminProhibitted')
