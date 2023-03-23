@@ -36,9 +36,21 @@ h2{
 p{
     font-size: 1.25rem;
     font-family: 'TeleLight';
-    
+    padding-left: 8rem;
+    padding-bottom: 1rem;
 }
+
 .main{
     padding: 15% 0 15%;
 }
 
+input[type=file]::file-selector-button{
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    font-family: 'TeleLight';
+}
+
+input[type=file]::file-selector-button:hover{
+    background-color:rgba(0, 0, 0, 0.479)
+}
