@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, DocumentForm, AddNewUser, CompanyForm
+from .forms import *
 from .models import Document, Company, Entity, Investing, Right, User, Round
 from manager.utils import airtable
 
@@ -102,7 +102,6 @@ def get_top_invest_rounds_data():
             data.append([])
 
     return [labels, data, companyNames]
-
 
 # @login_required
 def dashboard(request):
@@ -246,7 +245,6 @@ def users(request):
     context = {
         'data' : allUsers,
     }
-    print(allUsers)
     return render(request, 'users.html', context)
 
 def adminDeleteCompany(request, compID):
@@ -437,6 +435,7 @@ def addCompanyOne(request):
         form = CompanyForm(request.POST)
         if form.is_valid():
             Name = form.data['name']
+
             Number = form.data['number']
             Country = form.data['country_code']
             WayraInvestment = form.data['wayra_investment']
@@ -449,3 +448,75 @@ def addCompanyOne(request):
     else:
         form = CompanyForm() #A empty, unbound form
         return render(request, 'addCompanyOne.html', {'form': form})
+
+# @login_required
+#add view(s) to add companies to portfolio.
+def addFounderOne(request):
+    if request.method == 'POST':
+        form = FounderForm(request.POST)
+
+        if form.is_valid():
+            Name = form.data['name']
+            CompanyName = form.data['company']
+            #return HttpResponse(str(Company))
+            """
+            try:
+                founder = Entity.objects.get(name=Name)
+            except not Entity.DoesNotExist:
+                return HttpResponse("He already exists, genius!")
+                founder = Entity.objects.create(name=Name)
+            """
+            if Entity.objects.filter(name=Name).count() > 0:
+                founder = Entity.objects.get(name=Name)
+            else:
+                founder = Entity.objects.create(name=Name)
+
+            try:
+                company = Company.objects.get(name=CompanyName)
+                founder.founding_company.add(company)
+            except Company.DoesNotExist:
+                return render(request, 'addFounderOne.html', {'form': form, 'error':'Please enter a company that exists.'})
+
+            founder.save()
+            return redirect("portfolio")
+        else:
+            return HttpResponse(form.errors.as_data())
+    else:
+        form = FounderForm() #A empty, unbound form
+        return render(request, 'addFounderOne.html', {'form': form})
+#add investor form, founder form(Check), and rounds form.
+
+def addInvestorOne(request):
+    if request.method == 'POST':
+        form = InvestorForm(request.POST)
+        if form.is_valid():
+            return redirect("portfolio")
+        else:
+            return HttpResponse(form.errors.as_data())
+    else:
+        form = InvestorForm() #A empty, unbound form
+        return render(request, 'addInvestorOne.html', {'form': form})
+
+def addRoundOne(request):
+    if request.method == 'POST':
+        form = RoundForm(request.POST)
+        if form.is_valid():
+            return redirect("portfolio")
+        else:
+            return HttpResponse(form.errors.as_data())
+    else:
+        form = RoundForm() #A empty, unbound form
+        return render(request, 'addRoundOne.html', {'form': form})
+
+def addRightOne(request):
+    if request.method == 'POST':
+        form = RightForm(request.POST)
+        if form.is_valid():
+            return redirect("portfolio")
+        else:
+            return HttpResponse(form.errors.as_data())
+    else:
+        form = RightForm() #A empty, unbound form
+        return render(request, 'addRightOne.html', {'form': form})
+
+#add investor form(Check), founder form(Check), and rounds form(Check), and rights form(Check).
