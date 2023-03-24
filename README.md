@@ -2,13 +2,16 @@
 The Code of Duty Major Group Project Year2Sem2
 
 ## Authors
-SPARSH PATEL
-ROHAN DESAI
-PRATAP GUHA
-THATCHATHON LEELAWAT
-ABDUL (Abdul Rahman) MALLAH
-UMAIR QURESHI
-SHAAN VIERU
+- SPARSH PATEL
+- ROHAN DESAI
+- PRATAP GUHA
+- THATCHATHON LEELAWAT
+- ABDUL (Abdul Rahman) MALLAH
+- UMAIR QURESHI
+- SHAAN VIERU
+
+## Deployed version of the application
+The deployed version of the application can be found at *<>*.
 
 ## Instructions
 
@@ -45,3 +48,6 @@ Run test:
 ```
  $ python manage.py test
 ```
+
+## Sources
+The packages used by this application are specified in `requirements.txt`
