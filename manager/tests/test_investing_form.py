@@ -8,10 +8,10 @@ class InvestortFormTest(TestCase):
     """unit test of the signup form"""
 
     def setUp(self):
-        self.investor = Entity.objects.create(name = "Jane")
+        self.name = Entity.objects.create(name = "Jane")
         self.company = Company.objects.create(name = "company1", country_code = "UK", number = "ABC015")
         self.form_input = {
-            'investor': self.investor,
+            'name': self.name,
             'company': self.company,
             'amount': 100000
         }
@@ -21,7 +21,7 @@ class InvestortFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_blank_name(self): # checks that blank investor is not allowed
-        self.form_input['investor'] = ''
+        self.form_input['name'] = ''
         form = InvestorForm(data=self.form_input)
         self.assertFalse(form.is_valid())
 
