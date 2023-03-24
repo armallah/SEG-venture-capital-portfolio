@@ -42,10 +42,11 @@ class CompanyForm(forms.Form):
     description = forms.CharField(max_length=200)
     founder_Name = forms.CharField(max_length=50)
     
-class InvestorForm(ModelForm):
-    class Meta:
-        model = Investing
-        fields = ['investor', 'company','amount']
+class InvestorForm(forms.Form):
+    name = forms.CharField(max_length=50, required=True)
+    company = forms.CharField(max_length=50, required=True)
+    amount = forms.DecimalField(max_digits=10, decimal_places=3, validators=[MinValueValidator(Decimal('0.00'))])
+
 
 class RightForm(ModelForm):
     class Meta:

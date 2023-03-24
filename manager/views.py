@@ -568,7 +568,21 @@ def addInvestorOne(request):
     if request.method == 'POST':
         form = InvestorForm(request.POST)
         if form.is_valid():
-            form.save()
+            Name = form.data['name'].strip()
+            CompanyName = form.data['company'].strip()
+            Amount = form.data['amount']
+
+            if Entity.objects.filter(name=Name).count() > 0:
+                investorEntity = Entity.objects.get(name=Name)
+            else:
+                investorEntity = Entity.objects.create(name=Name)
+
+            try:
+                company = Company.objects.get(name=CompanyName)
+                Investor = Investing.objects.create(investor = investorEntity, company = company, amount = Amount)
+            except Company.DoesNotExist:
+                return render(request, 'addInvestorOne.html', {'form': form, 'error':'Please enter a company that exists.'})
+
             return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
