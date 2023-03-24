@@ -15,7 +15,6 @@
     }
     
 </script>
-{% comment %} re tab everything {% endcomment %}
 <link rel="stylesheet" href="{% static 'css/founders_and_investors.css' %}">
 <div class="container-fluid">
   <div class="row">
@@ -25,9 +24,9 @@
             <div class="button-group">
               <button class="button" onclick="redirectTo('')">Summary</button>
               <button class="button" onclick="redirectTo('founders')">Founders</button> 
-              <button class="button active-button" onclick="redirectTo('investors')">Investors</button> 
-              <button class="button" onclick="redirectTo('rounds')">Rounds</button>                    
-              <button class="button" onclick="redirectTo('rights')">Rights</button>                   
+              <button class="button" onclick="redirectTo('investors')">Investors</button> 
+              <button class="button  active-button" onclick="redirectTo('rounds')">Rounds</button>                    
+              <button class="button" onclick="redirectTo('rights')">Rights</button>                    
             </div>
         </nav>
     </div>
@@ -35,7 +34,7 @@
     <div class="row">
       <div class="card-container">
         <div class="detailed-table">
-          {% include 'partials/companies_investors_table.html' with data=company.investors.all %}
+          {% include 'partials/companies_rounds_table.html' with data=company.rounds %}
         <div>
       </div>
   </div>

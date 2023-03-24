@@ -1,0 +1,22 @@
+{% load static %}
+<style>
+  .ui-widget-header {
+    background: #ededed
+  }
+</style>
+<table id="display-tables" class="display compact" style="width:100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Holding Right</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in data.all %}
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.holding_right }} </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

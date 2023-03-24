@@ -198,6 +198,8 @@ def company_view(request, name):
 
     return render(request, 'company_details.html', {'company': company})
 
+
+
 def get_all_investors():
     data = Entity.objects.all()
     investingCompanies = []
@@ -282,6 +284,20 @@ def company_investors(request, company_name):
     context = {'company': company}
     
     return render(request, 'investors_details.html', context)
+
+
+def company_rounds(request, company_name):
+    company = get_object_or_404(Company, name=company_name)
+    context = {'company': company}
+
+    return render(request, 'rounds_details.html', context)
+
+
+def company_rights(request, company_name):
+    company = get_object_or_404(Company, name=company_name)
+    context = {'company': company}
+
+    return render(request, 'rights_details.html', context)
 
 @login_required
 @user_passes_test(admin_test, login_url='adminProhibitted')

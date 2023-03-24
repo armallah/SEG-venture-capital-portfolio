@@ -22,6 +22,9 @@
             <button class="button active-button" onclick="redirectTo('')">Summary</button>
             <button class="button" onclick="redirectTo('founders')">Founders</button>
             <button class="button" onclick="redirectTo('investors')">Investors</button>
+            <button class="button" onclick="redirectTo('rounds')">Rounds</button>
+            <button class="button" onclick="redirectTo('rights')">Rights</button>
+
           </div>
         </nav>
     </div>
@@ -30,7 +33,7 @@
     <div class="card-container">
       <div class="card card-about">
         <h2 class="card-h2">About</h2>
-          <p>Information about the company goes here</p>
+          <p>{{ company.description }}</p>
             <div class="about-card">
               <p><strong>Country Code:</strong> {{ company.country_code }}</p>
               <p><strong>Number:</strong> {{ company.number }}</p>
@@ -38,21 +41,34 @@
       </div>
         <div class="card card-highlights">
           <h2 class="card-h2">Highlights</h2>
-          <p>Highlights text</p>
-          <div class="founder-investor-buttons">
+          <p>Look for founders, investors , rounds and rights that {{ company.name }} holds </p>
+          {% comment %} id founderButton does not actually refer to founders but it means that its the top {% endcomment %}
+          <div class="highlight-buttons">
             <button class="info-button" onclick="redirectTo('founders')" id="founderButton">
               <span class="button-text">Founders</span>
               <span class="button-number">{{ company.founders.count }}</span>
               <span class="arrow">&gt;</span>
             </button>
-            <button class="info-button" onclick="redirectTo('investors')" id="investorButton">
+            <button class="info-button" onclick="redirectTo('investors')" id="founderButton">
               <span class="button-text">Investors</span>
               <span class="button-number">{{ company.investors.count }}</span>
               <span class="arrow">&gt;</span>
             </button>
           </div>
+          <div class="highlight-buttons">
+            <button class="info-button" onclick="redirectTo('rounds')" id="founderButton">
+              <span class="button-text">Rounds &nbsp&nbsp</span>
+              <span class="button-number">{{ company.rounds.count }}</span>
+              <span class="arrow">&gt;</span>
+            </button>
+            <button class="info-button" onclick="redirectTo('rights')" id="founderButton">
+              <span class="button-text">Rights&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+              <span class="button-number">{{ company.wayra_right.count }}</span>
+              <span class="arrow">&gt;</span>
+            </button>
+          </div>
         </div>
-        <div class="card card-news">
+        {% comment %} <div class="card card-news">
           <div>
             <h2 class="card-h2">Wayra Rights</h2>
               <ul>
@@ -61,7 +77,7 @@
                 {% endfor %}
               </ul>
           </div>
-        </div>
+        </div> {% endcomment %}
       </div>
   </div>
 </div>

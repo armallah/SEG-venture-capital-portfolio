@@ -1,0 +1,28 @@
+{% load static %}
+<style>
+  .ui-widget-header {
+    background: #ededed
+  }
+</style>
+<table id="display-tables" class="display compact" style="width:100%">
+  <thead>
+    <tr>
+      <th>Round Number</th>
+      <th>Round Date</th>
+      <th>Equity</th>
+      <th>Wayra Equity</th>
+      <th>Pre money valuation</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in data.all %}
+      <tr>
+        <td>{{ i.round_number }}</td>
+        <td>{{ i.round_date}} </td>
+        <td>{{ i.equity }}</td>
+        <td>{{ i.wayra_equity }}</td>
+        <td>{{ i.pre_money_valuation}} </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
