@@ -11,7 +11,7 @@ The Code of Duty Major Group Project Year2Sem2
 - SHAAN VIERU
 
 ## Deployed version of the application
-The deployed version of the application can be found at [*<>*](http://tlthon.pythonanywhere.com/).
+The deployed version of the application can be found at [*<http://tlthon.pythonanywhere.com/>*](http://tlthon.pythonanywhere.com/).
 
 ## Instructions
 
