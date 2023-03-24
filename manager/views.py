@@ -136,10 +136,6 @@ def get_dashboard_context():
         investUnit = "m"
         moneyInvested = float(moneyInvested) / 1000000
         moneyInvested = round(moneyInvested, 2)
-    # elif moneyInvested >= 1000:
-    #     investUnit = "k"
-    #     moneyInvested = float(moneyInvested) / 1000
-    #     moneyInvested = round(moneyInvested, 0)
     else:
         investUnit = ""
         moneyInvested = round(moneyInvested, 0)
@@ -331,7 +327,7 @@ def adminEcosystem(request):
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def users(request):
-    allUsers = User.objects.all().filter(user_type=1) #.exclude(id=request.user.id).order_by('id')
+    allUsers = User.objects.all().filter(user_type=1) 
     context = {
         'data' : allUsers,
     }
@@ -353,8 +349,7 @@ def adminAddUser(request):
             form.save()
             messages.success(request, 'New User added successfully.')
             form = AddNewUser()
-        # if errors, show error message
-        # messages.add_message(request, messages.ERROR, "There are some errors.")
+
     else:
         form = AddNewUser()
     context = {
@@ -378,7 +373,7 @@ def adminEditUser(request, userID):
             account.save()
             messages.success(request, 'User updated successfully.')
             form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
-            # return redirect('directorViewTerms')
+
     else:
         form = AddNewUser(initial={'first_name': account.first_name, 'last_name': account.last_name, 'email': account.email})
     context = {
@@ -401,13 +396,11 @@ def addCompany(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-
-
             try:
                 df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string', 'Wayra Investment': 'float', 'Description': 'string'})
             except:
                 return render(request, 'addCompany.html', {'form': form, 'error':'Please make sure your file is in the correct format.'})
-
+            
             for x in range(df.shape[0]):
                 name = df.iloc[x, 0].strip()
                 registeredNumber = df.iloc[x, 1].strip()
@@ -424,48 +417,33 @@ def addCompany(request):
 
                     investorList = df.iloc[x, 3].split(",")
 
-
                     for i in range(0, len(investorList), 2):
-                        #investor list contains[name, amount, name, amount...]
-                        #make sure to alternate elements for name and amount. And feed them in their respective areas.
                         investorName = investorList[i].strip()
                         try:
                             investorEntity = Entity.objects.get(name = investorName)
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             Investor.save()
                             company.investors.add(investorEntity)
-                            #add this investor to created company
                         except Entity.DoesNotExist:
                             investorEntity = Entity.objects.create(name = investorName)
                             Investor = Investing.objects.create(investor = investorEntity, company = company, amount = float(investorList[i+1]))
                             investorEntity.save()
                             Investor.save()
                             company.investors.add(investorEntity)
-                            company.save()
-
 
                         company.investors.add(investorEntity)
 
 
                     founderList = df.iloc[x, 4].split(",")
 
-
                     for founderName in founderList:
                         try:
                             founder = Entity.objects.get(name = founderName.strip())
                             company.founders.add(founder)
-                            company.save()
-
                         except Entity.DoesNotExist:
                             founder = Entity.objects.create(name = founderName.strip())
-
-                            founder.founding_company.add(company)
-
                             company.founders.add(founder)
-                            founder.save()
-                            company.save()
-
-
+                        founder.save()
 
                     rightsList = ""
                     if not pd.isna(df.iloc[x, 5]):
@@ -482,64 +460,57 @@ def addCompany(request):
                             validRight.holding_right.add(company)
                             validRight.save()
                     company.save()
+                    
             Document.objects.all().delete()
-            return redirect("portfolio")
+            return redirect("adminPortfolio")
         else:
             return render(request, 'addCompany.html', {'form': form, 'error':'Please upload a .xlsx file.'})
     else:
-        form = DocumentForm() #A empty, unbound form
+        form = DocumentForm() 
         return render(request, 'addCompany.html', {'form': form})
 
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
-#add view(s) to add companies to portfolio.
 def addCompanyOne(request):
     if request.method == 'POST':
         form = CompanyForm(request.POST)
 
         if form.is_valid():
-            Name = form.data['name']
+            Name = form.data['name'].strip()
 
-            Number = form.data['number']
+            Number = form.data['number'].strip()
             if Company.objects.filter(number=Number).count() > 0:
                 return render(request, 'addCompanyOne.html', {'form': form, 'error': 'There already exist a company with this Wayra number.'})
-            Country = form.data['country_code']
+            Country = form.data['country_code'].strip()
             WayraInvestment = form.data['wayra_investment']
-            Description = form.data['description']
-            FounderName = form.data['founder_Name']
+            Description = form.data['description'].strip()
+            FounderName = form.data['founder_Name'].strip()
             try:
                 founder = Entity.objects.get(name=FounderName)
             except Entity.DoesNotExist:
                 founder = Entity.objects.create(name=FounderName)
+
             newCompany = Company.objects.create(name=Name, number=Number, country_code=Country, wayra_investment=WayraInvestment, description=Description)
             newCompany.founders.add(founder)
-            #Entity.objects.create(name="John Doe").founding_company.add(newCompany)
+
             newCompany.save()
-            return redirect("portfolio")
+            return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = CompanyForm() #A empty, unbound form
+        form = CompanyForm() 
         return render(request, 'addCompanyOne.html', {'form': form})
 
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
-#add view(s) to add companies to portfolio.
 def addFounderOne(request):
     if request.method == 'POST':
         form = FounderForm(request.POST)
 
         if form.is_valid():
-            Name = form.data['name']
-            CompanyName = form.data['company']
-            #return HttpResponse(str(Company))
-            """
-            try:
-                founder = Entity.objects.get(name=Name)
-            except not Entity.DoesNotExist:
-                return HttpResponse("He already exists, genius!")
-                founder = Entity.objects.create(name=Name)
-            """
+            Name = form.data['name'].strip()
+            CompanyName = form.data['company'].strip()
+
             if Entity.objects.filter(name=Name).count() > 0:
                 founder = Entity.objects.get(name=Name)
             else:
@@ -552,13 +523,13 @@ def addFounderOne(request):
                 return render(request, 'addFounderOne.html', {'form': form, 'error':'Please enter a company that exists.'})
 
             founder.save()
-            return redirect("portfolio")
+            return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = FounderForm() #A empty, unbound form
+        form = FounderForm() 
         return render(request, 'addFounderOne.html', {'form': form})
-#add investor form, founder form(Check), and rounds form.
+
 
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
@@ -566,11 +537,12 @@ def addInvestorOne(request):
     if request.method == 'POST':
         form = InvestorForm(request.POST)
         if form.is_valid():
-            return redirect("portfolio")
+            form.save()
+            return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = InvestorForm() #A empty, unbound form
+        form = InvestorForm() 
         return render(request, 'addInvestorOne.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -579,11 +551,12 @@ def addRoundOne(request):
     if request.method == 'POST':
         form = RoundForm(request.POST)
         if form.is_valid():
-            return redirect("portfolio")
+            form.save()
+            return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = RoundForm() #A empty, unbound form
+        form = RoundForm() 
         return render(request, 'addRoundOne.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -592,11 +565,12 @@ def addRightOne(request):
     if request.method == 'POST':
         form = RightForm(request.POST)
         if form.is_valid():
-            return redirect("portfolio")
+            form.save()
+            return redirect("adminPortfolio")
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = RightForm() #A empty, unbound form
+        form = RightForm() 
         return render(request, 'addRightOne.html', {'form': form})
 
-#add investor form(Check), founder form(Check), and rounds form(Check), and rights form(Check).
+

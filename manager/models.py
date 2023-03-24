@@ -122,7 +122,4 @@ class Right(models.Model):
 class Document(models.Model):
     upload = models.FileField(upload_to='documents/')
 
-#     @property
-#     def file_url(self):
-#         if self.file and hasattr(self.file, 'url'):
-#             return self.file.path
+

@@ -65,11 +65,8 @@ class AddNewUser(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
-        widgets = {
-            # 'password': forms.PasswordInput(),
-        }
         help_texts = { 'first_name': None, 'last_name': None, 'email': None}
-    # username = forms.CharField(label="Email")
+
     password = forms.CharField(
         label = 'Password',
         widget = forms.PasswordInput(),
