@@ -5,7 +5,7 @@ from manager.forms import InvestorForm
 # i created this my self
 
 class InvestortFormTest(TestCase):
-    """unit test of the signup form"""
+    """unit test of the investor form"""
 
     def setUp(self):
         self.name = Entity.objects.create(name = "Jane")

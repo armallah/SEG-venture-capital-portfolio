@@ -5,7 +5,7 @@ from manager.forms import CompanyForm
 # i created this my self
 
 class CompanyFormTest(TestCase):
-    """unit test of the signup form"""
+    """unit test of the company form"""
 
     def setUp(self):
         self.form_input = {
