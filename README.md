@@ -26,7 +26,7 @@ Install all required packages:
  $ pip3 install -r requirements.txt
 ```
 
-Make necessary migrations:
+Make necessary migrations(If "python" doesn't work, please use "python3"):
 ```
  $ python manage.py makemigrations manager
  or
