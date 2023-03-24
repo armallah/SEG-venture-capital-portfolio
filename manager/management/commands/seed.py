@@ -8,4 +8,3 @@ class Command(BaseCommand):
         Company.objects.create(name = "Base Stone", number = "W00272", country_code = "Reino Unido", wayra_investment = 51006.00)
         Company.objects.create(name = "Eventstagram", number = "W00278", country_code = "Reino Unido", wayra_investment = 51006.00)
         Company.objects.create(name = "Narrato", number = "W00284", country_code = "Reino Unido", wayra_investment = 76006.00)
-        
