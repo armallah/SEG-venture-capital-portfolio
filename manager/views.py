@@ -268,35 +268,34 @@ def portfolio(request):
     }
     return render(request, 'portfolio.html', context)
 
-@login_required
+@login_required(login_url="/login")
 def company_founders(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
-    
+
     return render(request, 'founders_details.html', context)
 
-@login_required
+@login_required(login_url="/login")
 def company_investors(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
-    
+
     return render(request, 'investors_details.html', context)
 
-@login_required
+@login_required(login_url="/login")
 def company_rounds(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
 
     return render(request, 'rounds_details.html', context)
 
-@login_required
+@login_required(login_url="/login")
 def company_rights(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
 
     return render(request, 'rights_details.html', context)
 
-@login_required
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminPortfolio(request):
@@ -327,7 +326,7 @@ def adminEcosystem(request):
 @login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def users(request):
-    allUsers = User.objects.all().filter(user_type=1) 
+    allUsers = User.objects.all().filter(user_type=1)
     context = {
         'data' : allUsers,
     }
@@ -400,7 +399,7 @@ def addCompany(request):
                 df = pd.read_excel(request.FILES['upload'], dtype = {'Name':'string', 'Number':'string', 'Country':'string', 'Investors': 'string', 'Founders': 'string', 'Rights': 'string', 'Wayra Investment': 'float', 'Description': 'string'})
             except:
                 return render(request, 'addCompany.html', {'form': form, 'error':'Please make sure your file is in the correct format.'})
-            
+
             for x in range(df.shape[0]):
                 name = df.iloc[x, 0].strip()
                 registeredNumber = df.iloc[x, 1].strip()
@@ -460,13 +459,13 @@ def addCompany(request):
                             validRight.holding_right.add(company)
                             validRight.save()
                     company.save()
-                    
+
             Document.objects.all().delete()
             return redirect("adminPortfolio")
         else:
             return render(request, 'addCompany.html', {'form': form, 'error':'Please upload a .xlsx file.'})
     else:
-        form = DocumentForm() 
+        form = DocumentForm()
         return render(request, 'addCompany.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -498,7 +497,7 @@ def addCompanyOne(request):
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = CompanyForm() 
+        form = CompanyForm()
         return render(request, 'addCompanyOne.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -527,7 +526,7 @@ def addFounderOne(request):
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = FounderForm() 
+        form = FounderForm()
         return render(request, 'addFounderOne.html', {'form': form})
 
 
@@ -542,7 +541,7 @@ def addInvestorOne(request):
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = InvestorForm() 
+        form = InvestorForm()
         return render(request, 'addInvestorOne.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -556,7 +555,7 @@ def addRoundOne(request):
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = RoundForm() 
+        form = RoundForm()
         return render(request, 'addRoundOne.html', {'form': form})
 
 @login_required(login_url="/login")
@@ -570,7 +569,5 @@ def addRightOne(request):
         else:
             return HttpResponse(form.errors.as_data())
     else:
-        form = RightForm() 
+        form = RightForm()
         return render(request, 'addRightOne.html', {'form': form})
-
-
