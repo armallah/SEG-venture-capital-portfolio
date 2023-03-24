@@ -27,6 +27,7 @@ class MyModelAdmin(UserAdmin):
             'fields': ('last_login', 'date_joined',),
             'classes':('collapse',),
         }))
+    
                    
     add_fieldsets = (
         (None, {
