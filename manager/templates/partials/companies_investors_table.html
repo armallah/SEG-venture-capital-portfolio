@@ -11,21 +11,35 @@
       <th>Name</th>
       <th>Total Companies Founded</th>
       <th>Amount investment</th>
+      {% if admin %}
+        <th></th> <!-- Delete -->
+      {% endif %}
     </tr>
   </thead>
   <tbody>
     {% for investor in data %}
       <tr>
-        <td>{{ investor.id }}</td>
+        <td td style="text-align: center;">{{ investor.id }}</td>
         <td><a href="{% url 'entity_view' investor.name %}">{{ investor.name }}</td>
         <td>{{ investor.founding_company.count }}</td>
-        <td> 
+        <td>
           {% for investment in investor.investing_set.all %}
             {% if investment.company == company %}
               {{ investment.amount }}
             {% endif %}
           {% endfor %}
         </td>
+        {% if admin %}
+        <td style="text-align: center;">
+          <form action="{% url 'deleteCompanyInvestor' company.id investor.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{ investor.id }}" />
+            <button type="submit" class="btn btn-default" onclick="return confirm('Are you sure you want to delete this investor?');">
+                <span class="bi bi-trash"></span>
+            </button>
+          </form>
+        </td>
+        {% endif %}
       </tr>
     {% endfor %}
   </tbody>

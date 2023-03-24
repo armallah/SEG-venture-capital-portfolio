@@ -10,7 +10,7 @@
   function redirectTo(buttonName) {
     window.location.href = '/' + buttonName;
   }
-  
+
 </script>
 <link rel="stylesheet" href="{% static 'css/loginPage.css' %}">
 <div class="container mt-5">
@@ -30,7 +30,7 @@
           </form>
           <div class="row mt-3">
             <div class="col text-center">
-              <button type="submit" class="btn-password" onclick="redirectTo('reset_password')">Forgot Password?</button>
+              {# <button type="submit" class="btn-password" onclick="redirectTo('reset_password')">Forgot Password?</button> #}
               {# <button type="submit"class="btn-signup">Don't have an account? Sign Up</button> #}
             </div>
           </div>

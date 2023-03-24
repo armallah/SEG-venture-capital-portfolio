@@ -85,7 +85,7 @@ def get_top_invest_rounds_data():
     companyNames = []
     topCompanies = Company.objects.all().filter(wayra_investment__gt=0).order_by("-wayra_investment")[:5]
     for company in topCompanies:
-        compRounds = Round.objects.all().filter(company=company)
+        compRounds = Round.objects.all().filter(company=company).order_by('round_number')
         entry = []
         for r in compRounds:
             entry.append(int(r.pre_money_valuation))
@@ -269,30 +269,62 @@ def portfolio(request):
     return render(request, 'portfolio.html', context)
 
 @login_required(login_url="/login")
+@user_passes_test(admin_test, login_url='adminProhibitted')
+def deleteCompanyFounder(request, compID, founderID):
+    comp = Company.objects.get(id=compID)
+    founder = comp.founders.get(id=founderID)
+    comp.founders.remove(founder)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url="/login")
+@user_passes_test(admin_test, login_url='adminProhibitted')
+def deleteCompanyInvestor(request, compID, investorID):
+    comp = Company.objects.get(id=compID)
+    investor = comp.investors.get(id=investorID)
+    comp.investors.remove(investor)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url="/login")
+@user_passes_test(admin_test, login_url='adminProhibitted')
+def deleteCompanyRound(request, compID, roundID):
+    comp = Company.objects.get(id=compID)
+    round = comp.rounds.get(id=roundID)
+    round.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url="/login")
+@user_passes_test(admin_test, login_url='adminProhibitted')
+def deleteCompanyRight(request, compID, rightID):
+    comp = Company.objects.get(id=compID)
+    right = comp.wayra_right.get(id=rightID)
+    right.delete()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url="/login")
 def company_founders(request, company_name):
     company = get_object_or_404(Company, name=company_name)
-    context = {'company': company}
+    context = {'company': company, 'admin': admin_test(request.user)}
 
     return render(request, 'founders_details.html', context)
 
 @login_required(login_url="/login")
 def company_investors(request, company_name):
     company = get_object_or_404(Company, name=company_name)
-    context = {'company': company}
+    context = {'company': company, 'admin': admin_test(request.user)}
 
     return render(request, 'investors_details.html', context)
 
 @login_required(login_url="/login")
 def company_rounds(request, company_name):
     company = get_object_or_404(Company, name=company_name)
-    context = {'company': company}
+    context = {'company': company, 'admin': admin_test(request.user)}
 
     return render(request, 'rounds_details.html', context)
 
 @login_required(login_url="/login")
 def company_rights(request, company_name):
     company = get_object_or_404(Company, name=company_name)
-    context = {'company': company}
+    context = {'company': company, 'admin': admin_test(request.user)}
 
     return render(request, 'rights_details.html', context)
 

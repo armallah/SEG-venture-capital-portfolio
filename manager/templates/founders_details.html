@@ -11,7 +11,7 @@
 <script>
   function redirectTo(buttonName) {
     window.location.href = '/companies/' + '{{ company.name }}' + '/' + buttonName;
-  }  
+  }
 </script>
 <link rel="stylesheet" href="{% static 'css/founders_and_investors.css' %}">
 <div class="container-fluid">
@@ -21,24 +21,21 @@
         <nav class="nav-bar">
           <div class="button-group">
             <button class="button" onclick="redirectTo('')">Summary</button>
-            <button class="button active-button" onclick="redirectTo('founders')">Founders</button> 
-            <button class="button" onclick="redirectTo('investors')">Investors</button> 
-            <button class="button" onclick="redirectTo('rounds')">Rounds</button>                    
-            <button class="button" onclick="redirectTo('rights')">Rights</button>                  
+            <button class="button active-button" onclick="redirectTo('founders')">Founders</button>
+            <button class="button" onclick="redirectTo('investors')">Investors</button>
+            <button class="button" onclick="redirectTo('rounds')">Rounds</button>
+            <button class="button" onclick="redirectTo('rights')">Rights</button>
           </div>
         </nav>
     </div>
-  </div>    
+  </div>
   <div class="row">
     <div class="card-container">
       <div class="detailed-table">
-        {% include 'partials/companies_founders_table.html' with data=company.founders.all %}
+        {% include 'partials/companies_founders_table.html' with data=company.founders.all admin=admin company=company%}
       <div>
     </div>
   </div>
 </div>
 {% include 'partials/tables_javascript.html' %}
 {% endblock %}
-
-
-  
