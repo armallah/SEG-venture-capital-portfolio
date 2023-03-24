@@ -48,6 +48,10 @@ Run test:
 ```
  $ python manage.py test
 ```
+Login:
+- Click the login button on the Wayra homepage.
+- To log in as an admin, the username is admin@wayra.co, and the password is password.
+- To log in as a viewer, you need to log in as an admin, go to the "Accounts" page from the side-bar, click "Add New Account", then "Viewing Account" and enter the details you'd like for your viewing account before clicking submit. You should then be free to logout, and log in as a viewer, where your username is the email address, and the password is the password.
 
 ## Sources
 The packages used by this application are specified in `requirements.txt`
