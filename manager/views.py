@@ -173,11 +173,11 @@ def get_dashboard_context():
     }
     return context
 
-@login_required
+@login_required(login_url="/login")
 def dashboard(request):
     return render(request, 'dashboard.html', get_dashboard_context())
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDashboard(request):
     return render(request, 'adminDashboard.html', get_dashboard_context())
@@ -185,13 +185,13 @@ def adminDashboard(request):
 from django.shortcuts import render, get_object_or_404
 from .models import Entity, Company
 
-@login_required
+@login_required(login_url="/login")
 def entity_view(request, name):
     entity = get_object_or_404(Entity, name=name)
 
     return render(request, 'entity_details.html', {'entity': entity})
 
-@login_required
+@login_required(login_url="/login")
 def company_view(request, name):
 
     company = get_object_or_404(Company, name=name)
@@ -210,14 +210,14 @@ def get_all_investors():
 
     return investingCompanies
 
-@login_required
+@login_required(login_url="/login")
 def entities(request):
     context = {
         'data' : get_all_investors()
     }
     return render(request, 'entities.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEntities(request):
     context = {
@@ -225,7 +225,7 @@ def adminEntities(request):
     }
     return render(request, 'adminEntities.html', context)
 
-@login_required
+@login_required(login_url="/login")
 def sync(request):
     if request.method == 'POST':
         airtable.update_all()
@@ -243,14 +243,14 @@ def get_all_founders():
 
     return foundingCompanies
 
-@login_required
+@login_required(login_url="/login")
 def founders(request):
     context = {
         'data' : get_all_founders()
     }
     return render(request, 'founders.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminFounders(request):
     context = {
@@ -265,34 +265,35 @@ def get_all_portfolio_companies():
     portfolioCompanies = Company.objects.filter(wayra_investment__gt=0) #.filter(wayra_investment!=0) #.order_by('date')
     return portfolioCompanies
 
-@login_required
+@login_required(login_url="/login")
 def portfolio(request):
     context = {
         'data' : get_all_portfolio_companies(),
     }
     return render(request, 'portfolio.html', context)
 
+@login_required
 def company_founders(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
     
     return render(request, 'founders_details.html', context)
 
-
+@login_required
 def company_investors(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
     
     return render(request, 'investors_details.html', context)
 
-
+@login_required
 def company_rounds(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
 
     return render(request, 'rounds_details.html', context)
 
-
+@login_required
 def company_rights(request, company_name):
     company = get_object_or_404(Company, name=company_name)
     context = {'company': company}
@@ -300,6 +301,7 @@ def company_rights(request, company_name):
     return render(request, 'rights_details.html', context)
 
 @login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminPortfolio(request):
     context = {
@@ -311,14 +313,14 @@ def get_all_ecosystem_companies():
     ecosystemCompanies = Company.objects.filter(wayra_investment=0) #.filter(wayra_investment==0) #.order_by('date')
     return ecosystemCompanies
 
-@login_required
+@login_required(login_url="/login")
 def ecosystem(request):
     context = {
         'data' : get_all_ecosystem_companies(),
     }
     return render(request, 'ecosystem.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEcosystem(request):
     context = {
@@ -326,7 +328,7 @@ def adminEcosystem(request):
     }
     return render(request, 'adminEcosystem.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def users(request):
     allUsers = User.objects.all().filter(user_type=1) #.exclude(id=request.user.id).order_by('id')
@@ -335,14 +337,14 @@ def users(request):
     }
     return render(request, 'users.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDeleteCompany(request, compID):
     comp = Company.objects.get(id=compID)
     comp.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminAddUser(request):
     if request.method == 'POST':
@@ -360,7 +362,7 @@ def adminAddUser(request):
     }
     return render(request, 'admin_add_user.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminEditUser(request, userID):
     account = User.objects.get(id=userID)
@@ -386,14 +388,14 @@ def adminEditUser(request, userID):
 
     return render(request, 'admin_edit_user.html', context)
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def adminDeleteUser(request, userID):
     account = User.objects.get(id=userID)
     account.delete()
     return HttpResponseRedirect(reverse('users'))
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def addCompany(request):
     if request.method == 'POST':
@@ -488,7 +490,7 @@ def addCompany(request):
         form = DocumentForm() #A empty, unbound form
         return render(request, 'addCompany.html', {'form': form})
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 #add view(s) to add companies to portfolio.
 def addCompanyOne(request):
@@ -520,7 +522,7 @@ def addCompanyOne(request):
         form = CompanyForm() #A empty, unbound form
         return render(request, 'addCompanyOne.html', {'form': form})
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 #add view(s) to add companies to portfolio.
 def addFounderOne(request):
@@ -558,7 +560,7 @@ def addFounderOne(request):
         return render(request, 'addFounderOne.html', {'form': form})
 #add investor form, founder form(Check), and rounds form.
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def addInvestorOne(request):
     if request.method == 'POST':
@@ -571,7 +573,7 @@ def addInvestorOne(request):
         form = InvestorForm() #A empty, unbound form
         return render(request, 'addInvestorOne.html', {'form': form})
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def addRoundOne(request):
     if request.method == 'POST':
@@ -584,7 +586,7 @@ def addRoundOne(request):
         form = RoundForm() #A empty, unbound form
         return render(request, 'addRoundOne.html', {'form': form})
 
-@login_required
+@login_required(login_url="/login")
 @user_passes_test(admin_test, login_url='adminProhibitted')
 def addRightOne(request):
     if request.method == 'POST':
